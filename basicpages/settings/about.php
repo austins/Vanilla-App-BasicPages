@@ -23,7 +23,7 @@
 $ApplicationInfo['BasicPages'] = array(
    'Name' => 'Basic Pages',
    'Description' => "Basic Pages is an application that provides a way for you to create basic public pages for static content in Garden.",
-   'Version' => '1.7.1',
+   'Version' => '1.8',
    'RequiredApplications' => array('Vanilla' => '2.0'),
    'Author' => "Shadowdare",
    'AuthorUrl' => 'http://vanillaforums.org/profile/addons/16014/Shadowdare',
