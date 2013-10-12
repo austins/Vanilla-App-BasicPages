@@ -1,7 +1,7 @@
 <?php if (!defined('APPLICATION')) exit();
 /**
  * Basic Pages - An application for Garden & Vanilla Forums.
- * Copyright (C) 2013  Livid Tech
+ * Copyright (C) 2013  Shadowdare
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@ $Pages = $this->Data('PageData')->Result();
 <h1><?php echo $this->Data('Title'); ?></h1>
 <div class="Box Aside" style="text-align: center; padding: 10px;"><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=72R6B2BUCMH46" target="_blank"><img src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" alt="" style="vertical-align: middle;" /></a></div>
 <div class="Info">
-   <?php echo T('BasicPages.Settings.AllPages.Welcome', 'Welcome to the Basic Pages application by'); ?> <a href="http://lividtech.com/" target="_blank">Livid Tech</a> (Shadowdare)!
+   <?php echo T('BasicPages.Settings.AllPages.Welcome', 'Welcome to the Basic Pages application by'); ?> <a href="http://vanillaforums.org/profile/addons/16014/Shadowdare" target="_blank">Shadowdare</a>!
    
    <br /><br /><?php echo T('BasicPages.Settings.AllPages.Donate', 'If you find this application useful and would like to support the developer, please make a donation.'); ?>
 </div>

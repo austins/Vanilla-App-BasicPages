@@ -1,7 +1,7 @@
 <?php if (!defined('APPLICATION')) exit();
 /**
  * Basic Pages - An application for Garden & Vanilla Forums.
- * Copyright (C) 2013  Livid Tech
+ * Copyright (C) 2013  Shadowdare
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

@@ -1,7 +1,7 @@
 <?php
 /**
  * Basic Pages - An application for Garden & Vanilla Forums.
- * Copyright (C) 2013  Livid Tech
+ * Copyright (C) 2013  Shadowdare
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,8 +25,8 @@ $ApplicationInfo['BasicPages'] = array(
    'Description' => "Basic Pages is an application that provides a way for you to create basic public pages for static content in Garden.",
    'Version' => '1.7.1',
    'RequiredApplications' => array('Vanilla' => '2.0'),
-   'Author' => "Livid Tech",
-   'AuthorUrl' => 'http://lividtech.com/',
+   'Author' => "Shadowdare",
+   'AuthorUrl' => 'http://vanillaforums.org/profile/addons/16014/Shadowdare',
    'Url' => 'http://vanillaforums.org/addon/basicpages-application',
    'License' => 'GPLv3',
    'SetupController' => 'setup',

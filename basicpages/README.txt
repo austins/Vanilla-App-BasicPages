@@ -1,6 +1,6 @@
 /**
  * Basic Pages - An application for Garden & Vanilla Forums.
- * Copyright (C) 2013  Livid Tech
+ * Copyright (C) 2013  Shadowdare
  * 
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  */
