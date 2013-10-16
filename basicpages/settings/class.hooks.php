@@ -32,7 +32,7 @@ class BasicPagesHooks implements Gdn_IPlugin {
          $Pages = $PageModel->GetAllSiteMenuLink()->Result();
          
          foreach($Pages as $Page) {
-            $Sender->Menu->AddLink('BasicPages', $Page->Name, PageModel::PageUrl($Page), FALSE, array('class' => 'Page-' . $Page->UrlCode));
+            $Sender->Menu->AddLink('BasicPages-' . $Page->PageID, $Page->Name, PageModel::PageUrl($Page), FALSE, array('class' => 'Page-' . $Page->UrlCode));
          }
       }
    }

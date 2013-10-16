@@ -97,6 +97,7 @@ class PageModel extends BasicPagesModel {
 	 */
    public function GetAllSiteMenuLink() {
       $PageData = $this->SQL
+         ->Select('p.PageID', '', 'PageID')
          ->Select('p.Name', '', 'Name')
          ->Select('p.UrlCode', '', 'UrlCode')
          ->From('Page p')
