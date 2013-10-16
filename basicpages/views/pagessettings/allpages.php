@@ -31,7 +31,7 @@ $Pages = $this->Data('PageData')->Result();
 <div class="Info">
    <?php echo T('BasicPages.Settings.AllPages.Info', 'With the Basic Pages application, you can create basic public pages for static content.'); ?>
    
-   <br /><br /><?php echo T('BasicPages.Settings.AllPages.SortPages', 'Drag and drop the pages to sort them according to header site menu order.'); ?>
+   <br /><br /><?php echo T('BasicPages.Settings.AllPages.SortPages', 'Drag and drop the pages to change their order in the header site menu. The order is saved after you drag them.'); ?>
    
    <br /><br /><?php echo T('BasicPages.Settings.AllPages.GetStarted', 'Get started by clicking the button below to create a new page.'); ?>
 </div>
@@ -45,7 +45,7 @@ $Pages = $this->Data('PageData')->Result();
    <h1><?php echo T('BasicPages.Settings.AllPages.OrganizePages', 'Organize Pages'); ?></h1>
    <ol class="Sortable">
       <?php foreach($Pages as $Page): ?>
-         <li id="list_<?php echo $Page->PageID; ?>">
+         <li id="list_<?php echo $Page->PageID; ?>" class="NoNesting">
             <div>
                <table>
                   <tbody>

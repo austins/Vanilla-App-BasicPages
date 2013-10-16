@@ -25,6 +25,7 @@ jQuery(document).ready(function($) {
          handle: 'div',
          items: 'li',
          maxLevels: 1,
+         axis: 'y',
          opacity: .6,
          placeholder: 'Placeholder',
          tolerance: 'pointer',
