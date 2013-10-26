@@ -53,7 +53,7 @@ $Construct
    ->Column('UpdateUserID', 'int', TRUE)
    ->Column('Name', 'varchar(100)', FALSE, 'fulltext')
    ->Column('UrlCode', 'varchar(255)', TRUE)
-   ->Column('Body', 'text', FALSE, 'fulltext')
+   ->Column('Body', 'longtext', FALSE, 'fulltext')
    ->Column('Format', 'varchar(20)', TRUE)
    ->Column('DateInserted', 'datetime', FALSE, 'index')
    ->Column('DateUpdated', 'datetime', TRUE)
