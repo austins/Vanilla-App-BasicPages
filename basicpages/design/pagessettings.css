@@ -22,4 +22,5 @@ body.PagesSettings .Sortable table td strong {
 
 body.PagesSettings textarea.TextBox {
    max-height: none;
+   overflow: auto !important;
 }
