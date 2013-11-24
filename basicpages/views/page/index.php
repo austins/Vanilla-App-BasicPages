@@ -28,6 +28,7 @@ else
    $FormatBody = $Page->Body;
 ?>
 <div id="Page_<?php echo $Page->PageID; ?>" class="PageContent Page-<?php echo $Page->UrlCode; ?>">
+   <?php $this->FireEvent('BeforePageOptions'); ?>
    <?php if($Session->CheckPermission('Garden.Settings.Manage')): ?>
       <div class="Options">
          <span class="ToggleFlyout OptionsMenu">
@@ -45,6 +46,9 @@ else
          </span>
       </div>
    <?php endif; ?>
+   <?php $this->FireEvent('BeforePageTitle'); ?>
    <h1 id="PageTitle" class="H"><?php echo $Page->Name; ?></h1>
+   <?php $this->FireEvent('AfterPageTitle'); ?>
    <div id="PageBody"><?php echo $FormatBody; ?></div>
+   <?php $this->FireEvent('AfterPageBody'); ?>
 </div>
