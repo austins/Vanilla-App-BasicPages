@@ -46,7 +46,6 @@ else
          </span>
       </div>
    <?php endif; ?>
-   <?php $this->FireEvent('BeforePageTitle'); ?>
    <h1 id="PageTitle" class="H"><?php echo $Page->Name; ?></h1>
    <?php $this->FireEvent('AfterPageTitle'); ?>
    <div id="PageBody"><?php echo $FormatBody; ?></div>
