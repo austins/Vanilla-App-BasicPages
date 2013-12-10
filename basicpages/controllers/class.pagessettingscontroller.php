@@ -202,11 +202,14 @@ class PagesSettingsController extends Gdn_Controller {
          
          $SQL = Gdn::Database()->SQL();
          // Check if editing and if slug is same as one currently set in PageID.
-         $ValidPageID = $SQL
-            ->Select('p.UrlCode')
-            ->From('Page p')
-            ->Where('p.PageID', $Page->PageID)
-            ->Get()->FirstRow();
+         if(isset($Page)) {
+            $ValidPageID = $SQL
+               ->Select('p.UrlCode')
+               ->From('Page p')
+               ->Where('p.PageID', $Page->PageID)
+               ->Get()
+               ->FirstRow();
+         }
          // Make sure that the UrlCode is unique among pages.
          $InvalidUrlCode = $SQL
             ->Select('p.PageID')
@@ -214,7 +217,7 @@ class PagesSettingsController extends Gdn_Controller {
             ->Where('p.UrlCode', $FormValues['UrlCode'])
             ->Get()
             ->NumRows();
-         if(($InvalidUrlCode && ($ValidPageID->UrlCode != $FormValues['UrlCode']))
+         if((isset($Page) && $InvalidUrlCode && ($ValidPageID->UrlCode != $FormValues['UrlCode']))
                || ((!isset($Page) && $InvalidUrlCode)))
             $this->Form->AddError(T('BasicPages.Settings.NewPage.ErrorUrlCode', 'The specified URL code is already in use by another page.'), 'UrlCode');
          
