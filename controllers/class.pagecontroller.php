@@ -32,6 +32,11 @@ class PageController extends BasicPagesController {
    public function Index($PageUrlCode = '') {
       $Page = $this->PageModel->GetByUrlCode($PageUrlCode);
       
+      $PermissionName = 'BasicPages.'.$PageUrlCode.'.View';
+      if (array_key_exists($PermissionName, Gdn::PermissionModel()->PermissionColumns())) {
+         $this->Permission($PermissionName);
+      }
+      
       // If page doesn't exist.
       if($Page == NULL) {
          throw new Exception(sprintf(T('%s Not Found'), T('Page')), 404);
