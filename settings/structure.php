@@ -68,6 +68,7 @@ $Construct
    ->Column('UpdateIPAddress', 'varchar(15)', TRUE)
    ->Column('RawBody', 'tinyint(1)', '0')
    ->Column('SiteMenuLink', 'tinyint(1)', '0')
+   ->Column('CustomPermissions', 'tinyint(1)', '0')
    ->Set($Explicit, $Drop);
 
 // Update procedures from previous versions to Basic Pages 1.5.
