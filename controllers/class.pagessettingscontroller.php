@@ -239,6 +239,16 @@ class PagesSettingsController extends Gdn_Controller {
             $ValidationResults = $this->PageModel->ValidationResults();
             $this->Form->SetValidationResults($ValidationResults);
             
+            // Create custom permissions.
+            $PermissionName = 'BasicPages.'.$FormValues['UrlCode'].'.View';
+            if($FormValues['CustomPermissions'] == '1') {
+               Gdn::PermissionModel()->Define($PermissionName);
+            } else {
+               $Structure = GDN::Database()->Structure()->Table('Permission');
+               if ($Structure->ColumnExists($PermissionName)) {
+                  $Structure->DropColumn($PermissionName);
+               }
+            }
             // Create and clean up routes for UrlCode.
             if($Page->UrlCode != $FormValues['UrlCode']) {
                if(Gdn::Router()->MatchRoute($Page->UrlCode . $this->PageModel->RouteExpressionSuffix))
