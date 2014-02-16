@@ -261,9 +261,23 @@ class PagesSettingsController extends Gdn_Controller {
             }
 
             // Set up a custom view permission.
-            // The UrlCode must be validated before this code.
+            // The UrlCode must be unique and validated before this code.
             $ViewPermissionName = 'BasicPages.' . $FormValues['UrlCode'] . '.View';
             $PermissionTable = Gdn::Database()->Structure()->Table('Permission');
+
+            // If a page is being edited, then check if UrlCode was changed by the user
+            // and rename the custom view permission column for the page if it exists accordingly,
+            // to keep the permission table clean.
+            if(isset($Page) && ($ValidPageID->UrlCode != $FormValues['UrlCode'])) {
+               $OldViewPermissionName = 'BasicPages.' . $ValidPageID->UrlCode . '.View';
+
+               if($PermissionTable->ColumnExists($OldViewPermissionName))
+                  $PermissionTable->DropColumn($OldViewPermissionName);
+                  // The column must be dropped for now, because the RenameColumn method
+                  // has a bug, which has been reported.
+                  //$PermissionTable->RenameColumn($OldViewPermissionName, $ViewPermissionName);
+            }
+
             $ViewPermissionExists = $PermissionTable->ColumnExists($ViewPermissionName);
 
             // Check if the user checked the setting to enable the custom view permission.
