@@ -72,7 +72,7 @@ echo $this->Form->Errors();
       <?php echo $this->Form->CheckBox('HidePageFromURL', T('BasicPages.Settings.NewPage.PageHidePageFromURL', 'Hide "/page" from the URL?')); ?>
    </li>
    <li>
-      <?php echo $this->Form->CheckBox('CustomPermissions', T('BasicPages.Settings.NewPage.CustomPermissions', 'Should page have custom permissions?')); ?>
+      <?php echo $this->Form->CheckBox('ViewPermission', T('BasicPages.Settings.NewPage.PageCustomViewPermission', 'Use custom view permission?')); ?>
    </li>
 </ul>
 <div class="Buttons">

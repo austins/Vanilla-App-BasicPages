@@ -32,10 +32,11 @@ class PageController extends BasicPagesController {
    public function Index($PageUrlCode = '') {
       $Page = $this->PageModel->GetByUrlCode($PageUrlCode);
       
-      $PermissionName = 'BasicPages.'.$PageUrlCode.'.View';
-      if (array_key_exists($PermissionName, Gdn::PermissionModel()->PermissionColumns())) {
-         $this->Permission($PermissionName);
-      }
+      // Require the custom view permission if it exists.
+      // Otherwise, the page is public by default.
+      $ViewPermissionName = 'BasicPages.' . $PageUrlCode . '.View';
+      if(array_key_exists($ViewPermissionName, Gdn::PermissionModel()->PermissionColumns()))
+         $this->Permission($ViewPermissionName);
       
       // If page doesn't exist.
       if($Page == NULL) {

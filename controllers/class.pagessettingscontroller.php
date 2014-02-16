@@ -201,6 +201,7 @@ class PagesSettingsController extends Gdn_Controller {
          $this->Form->SetFormValue('UrlCode', $FormValues['UrlCode']);
          
          $SQL = Gdn::Database()->SQL();
+
          // Check if editing and if slug is same as one currently set in PageID.
          if(isset($Page)) {
             $ValidPageID = $SQL
@@ -210,6 +211,7 @@ class PagesSettingsController extends Gdn_Controller {
                ->Get()
                ->FirstRow();
          }
+
          // Make sure that the UrlCode is unique among pages.
          $InvalidUrlCode = $SQL
             ->Select('p.PageID')
@@ -217,6 +219,7 @@ class PagesSettingsController extends Gdn_Controller {
             ->Where('p.UrlCode', $FormValues['UrlCode'])
             ->Get()
             ->NumRows();
+
          if((isset($Page) && $InvalidUrlCode && ($ValidPageID->UrlCode != $FormValues['UrlCode']))
                || ((!isset($Page) && $InvalidUrlCode)))
             $this->Form->AddError(T('BasicPages.Settings.NewPage.ErrorUrlCode', 'The specified URL code is already in use by another page.'), 'UrlCode');
@@ -239,16 +242,20 @@ class PagesSettingsController extends Gdn_Controller {
             $ValidationResults = $this->PageModel->ValidationResults();
             $this->Form->SetValidationResults($ValidationResults);
             
-            // Create custom permissions.
-            $PermissionName = 'BasicPages.'.$FormValues['UrlCode'].'.View';
-            if($FormValues['CustomPermissions'] == '1') {
-               Gdn::PermissionModel()->Define($PermissionName);
+            // Set up a custom view permission.
+            // The UrlCode must be validated before this code.
+            $ViewPermissionName = 'BasicPages.' . $FormValues['UrlCode'] . '.View';
+            if($FormValues['ViewPermission'] == '1') {
+               // Create the view permission if the user checked the setting to do so.
+               Gdn::PermissionModel()->Define($ViewPermissionName);
             } else {
-               $Structure = GDN::Database()->Structure()->Table('Permission');
-               if ($Structure->ColumnExists($PermissionName)) {
-                  $Structure->DropColumn($PermissionName);
-               }
+               // Delete the view permission if it exists.
+               $PermissionTable = GDN::Database()->Structure()->Table('Permission');
+
+               if($PermissionTable->ColumnExists($ViewPermissionName))
+                  $PermissionTable->DropColumn($ViewPermissionName);
             }
+
             // Create and clean up routes for UrlCode.
             if($Page->UrlCode != $FormValues['UrlCode']) {
                if(Gdn::Router()->MatchRoute($Page->UrlCode . $this->PageModel->RouteExpressionSuffix))
