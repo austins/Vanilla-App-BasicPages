@@ -34,7 +34,7 @@ class PageController extends BasicPagesController {
       
       // Require the custom view permission if it exists.
       // Otherwise, the page is public by default.
-      $ViewPermissionName = 'BasicPages.' . $PageUrlCode . '.View';
+      $ViewPermissionName = 'Pages.' . $PageUrlCode . '.View';
       if(array_key_exists($ViewPermissionName, Gdn::PermissionModel()->PermissionColumns()))
          $this->Permission($ViewPermissionName);
       
