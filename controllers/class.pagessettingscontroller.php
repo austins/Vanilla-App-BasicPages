@@ -250,7 +250,7 @@ class PagesSettingsController extends Gdn_Controller {
                Gdn::PermissionModel()->Define($ViewPermissionName);
             } else {
                // Delete the view permission if it exists.
-               $PermissionTable = GDN::Database()->Structure()->Table('Permission');
+               $PermissionTable = Gdn::Database()->Structure()->Table('Permission');
 
                if($PermissionTable->ColumnExists($ViewPermissionName))
                   $PermissionTable->DropColumn($ViewPermissionName);
