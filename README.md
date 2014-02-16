@@ -1,6 +1,6 @@
 # Basic Pages
 
-Basic Pages is an application for Vanilla Forums that provides a way for you to create basic public pages for static content in Garden.
+Basic Pages is an application for Vanilla Forums that provides a way for you to create basic pages.
 
 This application is licensed under the GPLv3.
 

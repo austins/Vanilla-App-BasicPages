@@ -29,7 +29,7 @@ $Pages = $this->Data('PageData')->Result();
 
 <h1><?php echo T('BasicPages.Settings.AllPages.ManagePages', 'Manage Pages'); ?></h1>
 <div class="Info">
-   <?php echo T('BasicPages.Settings.AllPages.Info', 'With the Basic Pages application, you can create basic public pages for static content.'); ?>
+   <?php echo T('BasicPages.Settings.AllPages.Info', 'With this application, you can create basic pages.'); ?>
    
    <br /><br /><?php echo T('BasicPages.Settings.AllPages.SortPages', 'Drag and drop the pages to change their order in the header site menu. The order is saved after you drag them.'); ?>
    
