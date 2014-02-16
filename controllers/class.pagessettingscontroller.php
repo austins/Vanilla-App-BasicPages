@@ -263,23 +263,27 @@ class PagesSettingsController extends Gdn_Controller {
             // Set up a custom view permission.
             // The UrlCode must be validated before this code.
             $ViewPermissionName = 'BasicPages.' . $FormValues['UrlCode'] . '.View';
+            $PermissionTable = Gdn::Database()->Structure()->Table('Permission');
+            $PermissionExists = $PermissionTable->ColumnExists($ViewPermissionName);
+
+            // Check if the user checked the setting to enable the custom view permission.
             if($FormValues['ViewPermission'] == '1') {
-               $PermissionModel = Gdn::PermissionModel();
+               // Check if the permission does not exist.
+               if(!$PermissionExists) {
+                  $PermissionModel = Gdn::PermissionModel();
 
-               // Create the custom view permission if the user checked the setting to do so.
-               $PermissionModel->Define($ViewPermissionName);
+                  // Create the custom view permission.
+                  $PermissionModel->Define($ViewPermissionName);
 
-               // Set initial permission for the Administrator role.
-               $PermissionModel->Save(array(
-                     'Role' => 'Administrator',
-                     $ViewPermissionName => 1
-               ));
-            } else {
+                  // Set initial permission for the Administrator role.
+                  $PermissionModel->Save(array(
+                        'Role' => 'Administrator',
+                        $ViewPermissionName => 1
+                  ));
+               }
+            } elseif($PermissionExists) {
                // Delete the custom view permission if it exists.
-               $PermissionTable = Gdn::Database()->Structure()->Table('Permission');
-
-               if($PermissionTable->ColumnExists($ViewPermissionName))
-                  $PermissionTable->DropColumn($ViewPermissionName);
+               $PermissionTable->DropColumn($ViewPermissionName);
             }
             
             if($this->DeliveryType() == DELIVERY_TYPE_ALL) {
