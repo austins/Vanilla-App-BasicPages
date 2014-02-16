@@ -264,12 +264,12 @@ class PagesSettingsController extends Gdn_Controller {
             // The UrlCode must be validated before this code.
             $ViewPermissionName = 'BasicPages.' . $FormValues['UrlCode'] . '.View';
             $PermissionTable = Gdn::Database()->Structure()->Table('Permission');
-            $PermissionExists = $PermissionTable->ColumnExists($ViewPermissionName);
+            $ViewPermissionExists = $PermissionTable->ColumnExists($ViewPermissionName);
 
             // Check if the user checked the setting to enable the custom view permission.
             if($FormValues['ViewPermission'] == '1') {
                // Check if the permission does not exist.
-               if(!$PermissionExists) {
+               if(!$ViewPermissionExists) {
                   $PermissionModel = Gdn::PermissionModel();
 
                   // Create the custom view permission.
@@ -281,7 +281,7 @@ class PagesSettingsController extends Gdn_Controller {
                         $ViewPermissionName => 1
                   ));
                }
-            } elseif($PermissionExists) {
+            } elseif($ViewPermissionExists) {
                // Delete the custom view permission if it exists.
                $PermissionTable->DropColumn($ViewPermissionName);
             }
