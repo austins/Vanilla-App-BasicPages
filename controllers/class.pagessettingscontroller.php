@@ -241,26 +241,13 @@ class PagesSettingsController extends Gdn_Controller {
             
             $ValidationResults = $this->PageModel->ValidationResults();
             $this->Form->SetValidationResults($ValidationResults);
-            
-            // Set up a custom view permission.
-            // The UrlCode must be validated before this code.
-            $ViewPermissionName = 'BasicPages.' . $FormValues['UrlCode'] . '.View';
-            if($FormValues['ViewPermission'] == '1') {
-               // Create the view permission if the user checked the setting to do so.
-               Gdn::PermissionModel()->Define($ViewPermissionName);
-            } else {
-               // Delete the view permission if it exists.
-               $PermissionTable = Gdn::Database()->Structure()->Table('Permission');
-
-               if($PermissionTable->ColumnExists($ViewPermissionName))
-                  $PermissionTable->DropColumn($ViewPermissionName);
-            }
 
             // Create and clean up routes for UrlCode.
             if($Page->UrlCode != $FormValues['UrlCode']) {
                if(Gdn::Router()->MatchRoute($Page->UrlCode . $this->PageModel->RouteExpressionSuffix))
                   Gdn::Router()->DeleteRoute($Page->UrlCode . $this->PageModel->RouteExpressionSuffix);
             }
+
             if($FormValues['HidePageFromURL'] == '1'
                   && !Gdn::Router()->MatchRoute($FormValues['UrlCode'] . $this->PageModel->RouteExpressionSuffix)) {
                Gdn::Router()->SetRoute(
@@ -271,6 +258,28 @@ class PagesSettingsController extends Gdn_Controller {
             } elseif($FormValues['HidePageFromURL'] == '0'
                         && Gdn::Router()->MatchRoute($FormValues['UrlCode'] . $this->PageModel->RouteExpressionSuffix)) {
                Gdn::Router()->DeleteRoute($FormValues['UrlCode'] . $this->PageModel->RouteExpressionSuffix);
+            }
+
+            // Set up a custom view permission.
+            // The UrlCode must be validated before this code.
+            $ViewPermissionName = 'BasicPages.' . $FormValues['UrlCode'] . '.View';
+            if($FormValues['ViewPermission'] == '1') {
+               $PermissionModel = Gdn::PermissionModel();
+
+               // Create the custom view permission if the user checked the setting to do so.
+               $PermissionModel->Define($ViewPermissionName);
+
+               // Set initial permission for the Administrator role.
+               $PermissionModel->Save(array(
+                     'Role' => 'Administrator',
+                     $ViewPermissionName => 1
+               ));
+            } else {
+               // Delete the custom view permission if it exists.
+               $PermissionTable = Gdn::Database()->Structure()->Table('Permission');
+
+               if($PermissionTable->ColumnExists($ViewPermissionName))
+                  $PermissionTable->DropColumn($ViewPermissionName);
             }
             
             if($this->DeliveryType() == DELIVERY_TYPE_ALL) {
