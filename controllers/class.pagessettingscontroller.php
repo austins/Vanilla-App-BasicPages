@@ -237,8 +237,13 @@ class PagesSettingsController extends Gdn_Controller {
             $LastSort = $this->PageModel->GetLastSort();
             $FormValues['Sort'] = $LastSort + 1;
          }
-         
-         // If all form values are validated.
+
+         // Explicitly cast these values to an integer data type in case
+         // they are equal to '' to be valid with MySQL strict mode, etc.
+         $FormValues['RawBody'] = (int)$FormValues['RawBody'];
+         $FormValues['SiteMenuLink'] = (int)$FormValues['SiteMenuLink'];
+
+          // If all form values are validated.
          if($this->Form->ErrorCount() == 0) {
             $PageID = $this->PageModel->Save($FormValues);
             
