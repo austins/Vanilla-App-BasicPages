@@ -243,7 +243,7 @@ class PagesSettingsController extends Gdn_Controller {
          $FormValues['RawBody'] = (int)$FormValues['RawBody'];
          $FormValues['SiteMenuLink'] = (int)$FormValues['SiteMenuLink'];
 
-          // If all form values are validated.
+         // If all form values are validated.
          if($this->Form->ErrorCount() == 0) {
             $PageID = $this->PageModel->Save($FormValues);
             
