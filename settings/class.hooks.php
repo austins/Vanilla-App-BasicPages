@@ -27,12 +27,18 @@ class BasicPagesHooks implements Gdn_IPlugin {
     * Add pages in the config value array by ID to header site menu.
     */
    public function Base_Render_Before($Sender) {
-      if($Sender->Menu && $Sender->MasterView != 'admin') {
+      if(isset($Sender->Menu) && $Sender->MasterView != 'admin') {
          $PageModel = new PageModel();
          $Pages = $PageModel->GetAllSiteMenuLink()->Result();
          
          foreach($Pages as $Page) {
-            $Sender->Menu->AddLink('BasicPages-' . $Page->PageID, $Page->Name, PageModel::PageUrl($Page), FALSE, array('class' => 'Page-' . $Page->UrlCode));
+            // Check permission.
+            $Permission = FALSE;
+            if($Page->ViewPermission == '1')
+                $Permission = 'BasicPages.' . $Page->UrlCode . '.View';
+
+            // Add link to the menu.
+            $Sender->Menu->AddLink('BasicPages-' . $Page->PageID, $Page->Name, PageModel::PageUrl($Page), $Permission, array('class' => 'Page-' . $Page->UrlCode));
          }
       }
    }

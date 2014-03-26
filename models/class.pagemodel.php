@@ -100,6 +100,7 @@ class PageModel extends BasicPagesModel {
          ->Select('p.PageID', '', 'PageID')
          ->Select('p.Name', '', 'Name')
          ->Select('p.UrlCode', '', 'UrlCode')
+         ->Select('p.ViewPermission', '', 'ViewPermission')
          ->From('Page p')
          ->Where('p.SiteMenuLink', '1')
          ->OrderBy('Sort', 'asc')
