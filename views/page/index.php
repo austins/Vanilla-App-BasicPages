@@ -22,10 +22,12 @@ $Session = Gdn::Session();
 $Page = $this->Data('PageData');
 
 // Format Body
-if($Page->RawBody == '0')
+if((int)$Page->RawBody === 0)
    $FormatBody = Gdn_Format::To($Page->Body, $Page->Format);
-else
-   $FormatBody = $Page->Body;
+else {
+    $FormatBody = preg_replace("/(\015\012)|(\015)|(\012)/", "<br />", $Page->Body);
+    $FormatBody = FixNl2Br($FormatBody);
+}
 ?>
 <div id="Page_<?php echo $Page->PageID; ?>" class="PageContent Page-<?php echo $Page->UrlCode; ?>">
    <?php $this->FireEvent('BeforePageOptions'); ?>
