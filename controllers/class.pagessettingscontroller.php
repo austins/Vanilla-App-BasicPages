@@ -200,33 +200,26 @@ class PagesSettingsController extends Gdn_Controller {
          // Validate UrlCode.
          if($FormValues['UrlCode'] == '')
             $FormValues['UrlCode'] = $FormValues['Name'];
+
+          // Format the UrlCode.
          $FormValues['UrlCode'] = Gdn_Format::Url($FormValues['UrlCode']);
          $this->Form->SetFormValue('UrlCode', $FormValues['UrlCode']);
          
          $SQL = Gdn::Database()->SQL();
 
-         // Check if editing and if slug is same as one currently set in PageID.
-         if(isset($Page)) {
-            $ValidPageID = $SQL
-               ->Select('p.UrlCode')
-               ->From('Page p')
-               ->Where('p.PageID', $Page->PageID)
-               ->Get()
-               ->FirstRow();
-         }
+          // Make sure that the UrlCode is unique among pages.
+          $SQL->Select('p.PageID')
+              ->From('Page p')
+              ->Where('p.UrlCode', $FormValues['UrlCode']);
 
-         // Make sure that the UrlCode is unique among pages.
-         $InvalidUrlCode = $SQL
-            ->Select('p.PageID')
-            ->From('Page p')
-            ->Where('p.UrlCode', $FormValues['UrlCode'])
-            ->Get()
-            ->NumRows();
+          if (isset($Page))
+              $SQL->Where('p.PageID <>', $Page->PageID);
 
-         if((isset($Page) && $InvalidUrlCode && ($ValidPageID->UrlCode != $FormValues['UrlCode']))
-               || ((!isset($Page) && $InvalidUrlCode)))
-            $this->Form->AddError(T('BasicPages.Settings.NewPage.ErrorUrlCode', 'The specified URL code is already in use by another page.'), 'UrlCode');
-         
+          $UrlCodeExists = isset($SQL->Get()->FirstRow()->PageID);
+
+          if ($UrlCodeExists)
+              $this->Form->AddError(T('BasicPages.Settings.NewPage.ErrorUrlCode', 'The specified URL code is already in use by another page.'), 'UrlCode');
+
          // Check if user does not have permission to check RawBody.
          $Session = Gdn::Session();
          if(!$Session->CheckPermission('Garden.Settings.Manage'))
@@ -276,7 +269,7 @@ class PagesSettingsController extends Gdn_Controller {
             // If a page is being edited, then check if UrlCode was changed by the user
             // and rename the custom view permission column for the page if it exists accordingly,
             // to keep the permission table clean.
-            if(isset($Page) && ($ValidPageID->UrlCode != $FormValues['UrlCode'])) {
+            if(isset($Page) && ($Page->UrlCode != $FormValues['UrlCode'])) {
                $OldViewPermissionName = 'BasicPages.' . $ValidPageID->UrlCode . '.View';
 
                if($PermissionTable->ColumnExists($OldViewPermissionName))
