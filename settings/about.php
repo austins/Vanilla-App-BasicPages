@@ -21,14 +21,14 @@
  * An associative array of information about this application.
  */
 $ApplicationInfo['BasicPages'] = array(
-   'Name' => 'Basic Pages',
-   'Description' => "Basic Pages is an application that provides a way for you to create basic public pages for static content in Garden.",
-   'Version' => '2.0.0',
-   'RequiredApplications' => array('Vanilla' => '2.0'),
-   'Author' => "Shadowdare",
-   'AuthorUrl' => 'http://vanillaforums.org/profile/addons/16014/Shadowdare',
-   'Url' => 'http://vanillaforums.org/addon/basicpages-application',
-   'License' => 'GPLv3',
-   'SetupController' => 'setup',
-   'SettingsUrl' => 'pagessettings/allpages'
+    'Name' => 'Basic Pages',
+    'Description' => "Basic Pages is an application that provides a way for you to create basic public pages for static content in Garden.",
+    'Version' => '2.0.0',
+    'RequiredApplications' => array('Vanilla' => '2.0'),
+    'Author' => "Shadowdare",
+    'AuthorUrl' => 'http://vanillaforums.org/profile/addons/16014/Shadowdare',
+    'Url' => 'http://vanillaforums.org/addon/basicpages-application',
+    'License' => 'GPLv3',
+    'SetupController' => 'setup',
+    'SettingsUrl' => 'pagessettings/allpages'
 );

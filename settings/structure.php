@@ -1,4 +1,5 @@
-<?php if (!defined('APPLICATION')) exit(); // Make sure this file can't get accessed directly
+<?php if (!defined('APPLICATION'))
+    exit(); // Make sure this file can't get accessed directly
 /**
  * Basic Pages - An application for Garden & Vanilla Forums.
  * Copyright (C) 2013  Shadowdare
@@ -19,11 +20,11 @@
 
 // Use this file to do any database changes for your application.
 
-if(!isset($Drop))
-   $Drop = FALSE; // Safe default - Set to TRUE to drop the table if it already exists.
-   
-if(!isset($Explicit))
-   $Explicit = TRUE; // Safe default - Set to TRUE to remove all other columns from table.
+if (!isset($Drop))
+    $Drop = false; // Safe default - Set to TRUE to drop the table if it already exists.
+
+if (!isset($Explicit))
+    $Explicit = true; // Safe default - Set to TRUE to remove all other columns from table.
 
 $Database = Gdn::Database();
 $SQL = $Database->SQL(); // To run queries.
@@ -50,47 +51,47 @@ $Construct->Table('Page');
 // Remove version_compare conditional when 2.1 becomes required by this app.
 // Runs if Vanilla version is NOT greater than or equal to 2.1b1.
 $PageBodyColumnType = 'longtext';
-if(!version_compare(APPLICATION_VERSION, '2.1b1', '>='))
-   $PageBodyColumnType = 'text'; // Vanilla 2.0.18.8 does not allow longtext.
+if (!version_compare(APPLICATION_VERSION, '2.1b1', '>='))
+    $PageBodyColumnType = 'text'; // Vanilla 2.0.18.8 does not allow longtext.
 
 $Construct
-   ->PrimaryKey('PageID')
-   ->Column('Sort', 'int', TRUE)
-   ->Column('InsertUserID', 'int', FALSE, 'key')
-   ->Column('UpdateUserID', 'int', TRUE)
-   ->Column('Name', 'varchar(100)', FALSE, 'fulltext')
-   ->Column('UrlCode', 'varchar(255)', TRUE)
-   ->Column('Body', $PageBodyColumnType, FALSE, 'fulltext')
-   ->Column('Format', 'varchar(20)', TRUE)
-   ->Column('DateInserted', 'datetime', FALSE, 'index')
-   ->Column('DateUpdated', 'datetime', TRUE)
-   ->Column('InsertIPAddress', 'varchar(15)', TRUE)
-   ->Column('UpdateIPAddress', 'varchar(15)', TRUE)
-   ->Column('RawBody', 'tinyint(1)', '0')
-   ->Column('SiteMenuLink', 'tinyint(1)', '0')
-   ->Column('ViewPermission', 'tinyint(1)', '0')
-   ->Set($Explicit, $Drop);
+    ->PrimaryKey('PageID')
+    ->Column('Sort', 'int', true)
+    ->Column('InsertUserID', 'int', false, 'key')
+    ->Column('UpdateUserID', 'int', true)
+    ->Column('Name', 'varchar(100)', false, 'fulltext')
+    ->Column('UrlCode', 'varchar(255)', true)
+    ->Column('Body', $PageBodyColumnType, false, 'fulltext')
+    ->Column('Format', 'varchar(20)', true)
+    ->Column('DateInserted', 'datetime', false, 'index')
+    ->Column('DateUpdated', 'datetime', true)
+    ->Column('InsertIPAddress', 'varchar(15)', true)
+    ->Column('UpdateIPAddress', 'varchar(15)', true)
+    ->Column('RawBody', 'tinyint(1)', '0')
+    ->Column('SiteMenuLink', 'tinyint(1)', '0')
+    ->Column('ViewPermission', 'tinyint(1)', '0')
+    ->Set($Explicit, $Drop);
 
 // Update procedures from previous versions to Basic Pages 1.5.
 // Update routes to pages with old expression suffix to new expression suffix.
-if(C('BasicPages.Version') && version_compare(C('BasicPages.Version'), '1.5', '<')) {
-   $PageModel = new PageModel();
-   $PageData = $PageModel->GetAll();
-   $Pages = $PageData->Result();
-   
-   $OldRouteExpressionSuffix = '(/.*)?$';
-   
-   foreach($Pages as $Page) {
-      if(Gdn::Router()->MatchRoute($Page->UrlCode . $OldRouteExpressionSuffix)) {
-         Gdn::Router()->DeleteRoute($Page->UrlCode . $OldRouteExpressionSuffix);
-         
-         Gdn::Router()->SetRoute(
-                  $Page->UrlCode . $PageModel->RouteExpressionSuffix,
-                  'page/' . $Page->UrlCode . $PageModel->RouteTargetSuffix,
-                  'Internal'
-               );
-      }
-   }
+if (C('BasicPages.Version') && version_compare(C('BasicPages.Version'), '1.5', '<')) {
+    $PageModel = new PageModel();
+    $PageData = $PageModel->GetAll();
+    $Pages = $PageData->Result();
+
+    $OldRouteExpressionSuffix = '(/.*)?$';
+
+    foreach ($Pages as $Page) {
+        if (Gdn::Router()->MatchRoute($Page->UrlCode . $OldRouteExpressionSuffix)) {
+            Gdn::Router()->DeleteRoute($Page->UrlCode . $OldRouteExpressionSuffix);
+
+            Gdn::Router()->SetRoute(
+                $Page->UrlCode . $PageModel->RouteExpressionSuffix,
+                'page/' . $Page->UrlCode . $PageModel->RouteTargetSuffix,
+                'Internal'
+            );
+        }
+    }
 }
 
 // Set current BasicPages.Version everytime the application is enabled.
