@@ -61,7 +61,7 @@ $Construct
     ->Column('InsertUserID', 'int', false, 'key')
     ->Column('UpdateUserID', 'int', true)
     ->Column('Name', 'varchar(100)', false, 'fulltext')
-    ->Column('UrlCode', 'varchar(255)', true)
+    ->Column('UrlCode', 'varchar(255)', false, 'unique')
     ->Column('Body', $PageBodyColumnType, false, 'fulltext')
     ->Column('Format', 'varchar(20)', true)
     ->Column('DateInserted', 'datetime', false, 'index')
