@@ -1,4 +1,5 @@
-<?php if (!defined('APPLICATION'))
+<?php
+if (!defined('APPLICATION'))
     exit();
 /**
  * Basic Pages - An application for Garden & Vanilla Forums.

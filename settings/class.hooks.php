@@ -1,4 +1,5 @@
-<?php if (!defined('APPLICATION'))
+<?php
+if (!defined('APPLICATION'))
     exit(); // Make sure this file can't get accessed directly
 /**
  * Basic Pages - An application for Garden & Vanilla Forums.
