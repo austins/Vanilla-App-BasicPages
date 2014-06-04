@@ -45,10 +45,8 @@ class PageModel extends Gdn_Model {
         $this->SQL->Select('p.*')->From('Page p');
 
         // Assign up limits and offsets.
-        if (!$Limit)
-            $Limit = Gdn::Config('Articles.Articles.PerPage', 12);
-
-        $Offset = !is_numeric($Offset) || ($Offset < 0 ? 0 : $Offset);
+        $Limit = $Limit ? $Limit : C('BasicPages.Pages.PerPage', 20);
+        $Offset = is_numeric($Offset) ? (($Offset < 0) ? 0 : $Offset) : false;
 
         if (($Offset !== false) && ($Limit !== false))
             $this->SQL->Limit($Limit, $Offset);
@@ -60,9 +58,12 @@ class PageModel extends Gdn_Model {
         if (is_array($Wheres))
             $this->SQL->Where($Wheres);
 
-        $Page = $this->SQL->OrderBy('Sort', 'asc')->Get();
+        // Sort order.
+        $this->SQL->OrderBy('Sort', 'asc');
 
-        return $Page;
+        $Pages = $this->SQL->Get();
+
+        return $Pages;
     }
 
     /**

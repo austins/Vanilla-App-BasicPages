@@ -61,7 +61,7 @@ class PagesSettingsController extends Gdn_Controller {
     /**
      * Loads view with list of all pages.
      */
-    public function AllPages() {
+    public function AllPages($IndexPage = false) {
         // Check permission
         $this->Permission('Garden.Settings.Manage');
 
@@ -77,8 +77,33 @@ class PagesSettingsController extends Gdn_Controller {
         $this->AddJsFile('js/library/nestedSortable.1.3.4/jquery.ui.nestedSortable.js');
         $this->AddJsFile('pagessettings-allpages.js');
 
+        // Determine offset from $Page
+        $IndexPageLimit = C('BasicPages.Pages.PerPage', 20);
+        list($Offset, $Limit) = OffsetLimit($IndexPage, $IndexPageLimit);
+        $IndexPage = PageNumber($Offset, $Limit);
+
         // Get page data
-        $this->SetData('Pages', $this->PageModel->Get());
+        $this->SetData('Pages', $this->PageModel->Get($Offset, $Limit));
+
+        // Build the pager.
+        $CountPages = $this->PageModel->GetCount();
+        $this->SetData('CountPages', $CountPages);
+        $PagerFactory = new Gdn_PagerFactory();
+        $this->EventArguments['PagerType'] = 'Pager';
+        $this->FireEvent('BeforeBuildPager');
+        $this->Pager = $PagerFactory->GetPager($this->EventArguments['PagerType'], $this);
+        $this->Pager->ClientID = 'Pager';
+        $this->Pager->Configure(
+            $Offset,
+            $Limit,
+            $CountPages,
+            '/pagessettings/allpages/%1$s/'
+        );
+        if (!$this->Data('_PagerUrl'))
+            $this->SetData('_PagerUrl', '/pagessettings/allpages/{Page}/');
+        $this->SetData('_IndexPage', $IndexPage);
+        $this->SetData('_Limit', $Limit);
+        $this->FireEvent('AfterBuildPager');
 
         $this->AddSideMenu('pagessettings/allpages');
         $this->Title(T('BasicPages.Settings.AllPages', 'All Pages'));
