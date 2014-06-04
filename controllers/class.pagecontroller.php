@@ -48,7 +48,7 @@ class PageController extends BasicPagesController {
         }
 
         // Get page data.
-        $this->SetData('PageData', $Page);
+        $this->SetData('Page', $Page);
 
         // Add body CSS class.
         $this->CssClass = 'Page-' . $Page->UrlCode;

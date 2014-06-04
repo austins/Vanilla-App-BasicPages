@@ -39,16 +39,16 @@ class PageModel extends BasicPagesModel {
     /**
      * Get list of all pages.
      *
-     * @return object $PageData; SQL results.
+     * @return object $Page; SQL results.
      */
     public function GetAll() {
-        $PageData = $this->SQL
+        $Page = $this->SQL
             ->Select('p.*')
             ->From('Page p')
             ->OrderBy('Sort', 'asc')
             ->Get();
 
-        return $PageData;
+        return $Page;
     }
 
     /**
@@ -98,7 +98,7 @@ class PageModel extends BasicPagesModel {
      * @return object $Page; SQL result.
      */
     public function GetAllSiteMenuLink() {
-        $PageData = $this->SQL
+        $Page = $this->SQL
             ->Select('p.PageID', '', 'PageID')
             ->Select('p.Name', '', 'Name')
             ->Select('p.UrlCode', '', 'UrlCode')
@@ -108,7 +108,7 @@ class PageModel extends BasicPagesModel {
             ->OrderBy('Sort', 'asc')
             ->Get();
 
-        return $PageData;
+        return $Page;
     }
 
     public function GetLastSort() {

@@ -21,7 +21,7 @@ if (!defined('APPLICATION'))
 
 $Session = Gdn::Session();
 
-$Page = $this->Data('PageData');
+$Page = $this->Data('Page');
 
 // Format Body
 if ((int)$Page->RawBody === 0)

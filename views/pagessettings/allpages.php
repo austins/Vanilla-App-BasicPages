@@ -19,7 +19,7 @@ if (!defined('APPLICATION'))
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-$Pages = $this->Data('PageData')->Result();
+$Pages = $this->Data('Page')->Result();
 ?>
 <h1><?php echo $this->Data('Title'); ?></h1>
 <div class="Box Aside" style="text-align: center; padding: 10px;"><a
