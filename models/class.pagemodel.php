@@ -22,7 +22,7 @@ if (!defined('APPLICATION'))
 /**
  * Page Model
  */
-class PageModel extends BasicPagesModel {
+class PageModel extends Gdn_Model {
     /**
      * Class constructor. Defines the related database table name.
      *
