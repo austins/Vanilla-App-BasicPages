@@ -78,7 +78,7 @@ class PagesSettingsController extends Gdn_Controller {
         $this->AddJsFile('pagessettings-allpages.js');
 
         // Get page data
-        $this->SetData('Pages', $this->PageModel->GetAll());
+        $this->SetData('Pages', $this->PageModel->Get());
 
         $this->AddSideMenu('pagessettings/allpages');
         $this->Title(T('BasicPages.Settings.AllPages', 'All Pages'));

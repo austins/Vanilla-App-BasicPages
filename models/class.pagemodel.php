@@ -41,12 +41,26 @@ class PageModel extends Gdn_Model {
      *
      * @return object $Page; SQL results.
      */
-    public function GetAll() {
-        $Page = $this->SQL
-            ->Select('p.*')
-            ->From('Page p')
-            ->OrderBy('Sort', 'asc')
-            ->Get();
+    public function Get($Offset = 0, $Limit = false, $Wheres = null) {
+        $this->SQL->Select('p.*')->From('Page p');
+
+        // Assign up limits and offsets.
+        if (!$Limit)
+            $Limit = Gdn::Config('Articles.Articles.PerPage', 12);
+
+        $Offset = !is_numeric($Offset) || ($Offset < 0 ? 0 : $Offset);
+
+        if (($Offset !== false) && ($Limit !== false))
+            $this->SQL->Limit($Limit, $Offset);
+
+        // Handle SQL conditions for wheres.
+        $this->EventArguments['Wheres'] = & $Wheres;
+        $this->FireEvent('BeforeGet');
+
+        if (is_array($Wheres))
+            $this->SQL->Where($Wheres);
+
+        $Page = $this->SQL->OrderBy('Sort', 'asc')->Get();
 
         return $Page;
     }

@@ -70,8 +70,7 @@ $Construct
 // Update routes to pages with old expression suffix to new expression suffix.
 if (C('BasicPages.Version') && version_compare(C('BasicPages.Version'), '1.5', '<')) {
     $PageModel = new PageModel();
-    $Page = $PageModel->GetAll();
-    $Pages = $Page->Result();
+    $Pages = $PageModel->Get()->Result();
 
     $OldRouteExpressionSuffix = '(/.*)?$';
 
