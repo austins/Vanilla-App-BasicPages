@@ -65,24 +65,16 @@ class PagesSettingsController extends Gdn_Controller {
         // Check permission
         $this->Permission('Garden.Settings.Manage');
 
-        // VERSION SPECIFIC CODE
-        // Remove version_compare procedure when 2.1 becomes required by this app.
-        // Runs if Vanilla version is greater than or equal to 2.1b1.
-        if (version_compare(APPLICATION_VERSION, '2.1b1', '>=')) {
-            // Add JavaScript files.
-            if (version_compare(APPLICATION_VERSION, '2.2', '>=')) {
-                // Version 2.2+
-                // Version 2.1b1 doesn't have the new jQuery.
-                // Nested sortable breaks with updated jQuery, so include old jQuery.
-                $this->RemoveJsFile('jquery.js');
-                $this->AddJsFile('js/library/nestedSortable.1.3.4/jquery-1.7.2.min.js', '', array('Sort' => 0));
-            }
-            $this->AddJsFile('js/library/nestedSortable.1.3.4/jquery-ui-1.8.11.custom.min.js');
-            $this->AddJsFile('js/library/nestedSortable.1.3.4/jquery.ui.nestedSortable.js');
-        } else {
-            $this->AddJsFile('js/library/nestedSortable.1.2.1/jquery-ui-1.8.2.custom.min.js');
-            $this->AddJsFile('js/library/nestedSortable.1.2.1/jquery.ui.nestedSortable.js');
+        if (version_compare(APPLICATION_VERSION, '2.2', '>=')) {
+            // Version 2.2+
+            // Version 2.1b1 doesn't have the new jQuery.
+            // Nested sortable breaks with updated jQuery, so include old jQuery.
+            $this->RemoveJsFile('jquery.js');
+            $this->AddJsFile('js/library/nestedSortable.1.3.4/jquery-1.7.2.min.js', '', array('Sort' => 0));
         }
+
+        $this->AddJsFile('js/library/nestedSortable.1.3.4/jquery-ui-1.8.11.custom.min.js');
+        $this->AddJsFile('js/library/nestedSortable.1.3.4/jquery.ui.nestedSortable.js');
         $this->AddJsFile('pagessettings-allpages.js');
 
         // Get page data
@@ -104,17 +96,7 @@ class PagesSettingsController extends Gdn_Controller {
         // Set delivery type to true/false.
         $TransientKey = GetIncomingValue('TransientKey');
 
-        // VERSION SPECIFIC CODE
-        // Remove version_compare procedure when 2.1 becomes required by this app.
-        // Runs if Vanilla version is greater than or equal to 2.1b1.
-        if (version_compare(APPLICATION_VERSION, '2.1b1', '>=')) {
-            $ValidTransient = Gdn::Request()->IsPostBack();
-        } else {
-            $ValidTransient = Gdn::Session()->ValidateTransientKey($TransientKey);
-            if ($this->_DeliveryType == DELIVERY_TYPE_ALL)
-                $this->_DeliveryType = DELIVERY_TYPE_BOOL;
-        }
-
+        $ValidTransient = Gdn::Request()->IsPostBack();
         if ($ValidTransient) {
             $TreeArray = GetValue('TreeArray', $_POST);
             $Saves = $this->PageModel->SaveSort($TreeArray);
@@ -144,17 +126,6 @@ class PagesSettingsController extends Gdn_Controller {
         if (Gdn::PluginManager()->CheckPlugin('ButtonBar'))
             $this->AddCssFile('buttonbar.css', 'plugins/ButtonBar');
 
-        // VERSION SPECIFIC CODE
-        // Remove version_compare procedure when 2.1 becomes required by this app.
-        // Runs if Vanilla version is NOT greater than or equal to 2.1b1.
-        if (!version_compare(APPLICATION_VERSION, '2.1b1', '>=')
-            && Gdn::PluginManager()->CheckPlugin('ButtonBar')
-        ) {
-            // Include JS files for non-core ButtonBar plugin for Vanilla 2.0.
-            $this->AddJsFile('buttonbar.js', 'plugins/ButtonBar');
-            $this->AddJsFile('jquery.hotkeys.js', 'plugins/ButtonBar');
-        }
-
         // Prep Model
         $this->Form->SetModel($this->PageModel);
 
@@ -163,15 +134,6 @@ class PagesSettingsController extends Gdn_Controller {
             // Prep form with current data for editing
             if (isset($Page)) {
                 $this->Form->SetData($Page);
-
-                // VERSION SPECIFIC CODE
-                // Remove version_compare procedure when 2.1 becomes required by this app.
-                // Runs if Vanilla version is NOT greater than or equal to 2.1b1.
-                if (!version_compare(APPLICATION_VERSION, '2.1b1', '>=')) {
-                    foreach ($Page as $Property => $Value) {
-                        $this->Form->SetFormValue($Property, $Value);
-                    }
-                }
 
                 $this->Form->AddHidden('UrlCodeIsDefined', '1');
 
@@ -414,10 +376,6 @@ class PagesSettingsController extends Gdn_Controller {
         $this->MasterView = 'admin';
         parent::Initialize();
 
-        // VERSION SPECIFIC CODE
-        // Remove version_compare conditional when 2.1 becomes required by this app.
-        // Runs if Vanilla version is greater than or equal to 2.1b1.
-        if (version_compare(APPLICATION_VERSION, '2.1b1', '>='))
-            Gdn_Theme::Section('Dashboard');
+        Gdn_Theme::Section('Dashboard');
     }
 }

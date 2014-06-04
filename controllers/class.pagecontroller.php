@@ -56,13 +56,6 @@ class PageController extends BasicPagesController {
         if (IsMobile())
             $this->CssClass .= ' PageMobile';
 
-        // VERSION SPECIFIC CODE
-        // Remove version_compare conditional when 2.1 becomes required by this app.
-        // Runs if Vanilla version is NOT greater than or equal to 2.1b1.
-        if (!version_compare(APPLICATION_VERSION, '2.1b1', '>=')) {
-            $this->CssClass .= ' Page20';
-        }
-
         // Set the canonical URL to have the proper page link.
         $this->CanonicalUrl(PageModel::PageUrl($Page));
 
@@ -73,69 +66,30 @@ class PageController extends BasicPagesController {
         // Add CSS files
         $this->AddCssFile('page.css');
 
-        // VERSION SPECIFIC CODE
-        // Remove version_compare conditional when 2.1 becomes required by this app.
-        // Runs if Vanilla version is greater than or equal to 2.1b1.
-        if (version_compare(APPLICATION_VERSION, '2.1b1', '>=')) {
-            $this->AddModule('NewDiscussionModule');
-        } else {
-            // Runs if Vanilla version is NOT greater than or equal to 2.1b1.
-            $ApplicationFolder = $this->ApplicationFolder;
-            $this->ApplicationFolder = 'vanilla';
-            $this->AddModule('NewDiscussionModule');
-            $this->ApplicationFolder = $ApplicationFolder;
-        }
+        $this->AddModule('NewDiscussionModule');
+        $this->AddModule('DiscussionFilterModule');
+        $this->AddModule('BookmarkedModule');
+        $this->AddModule('DiscussionsModule');
+        $this->AddModule('RecentActivityModule');
 
-        // VERSION SPECIFIC CODE
-        // Remove version_compare conditional when 2.1 becomes required by this app.
-        // Runs if Vanilla version is greater than or equal to 2.1b1.
-        if (version_compare(APPLICATION_VERSION, '2.1b1', '>=')) {
-            $this->AddModule('DiscussionFilterModule');
-            $this->AddModule('BookmarkedModule');
-        } else {
-            // Runs if Vanilla version is NOT greater than or equal to 2.1b1.
-            // Bug fix for FetchView arguments in modules
-            // that don't use 'vanilla' namespace in Vanilla 2.0.
-            $ApplicationFolder = $this->ApplicationFolder;
-            $this->ApplicationFolder = 'vanilla';
-            $this->AddModule('BookmarkedModule');
-            $this->ApplicationFolder = $ApplicationFolder;
-        }
+        // Setup head.
+        if (!$this->Data('Title')) {
+            $Title = C('Garden.HomepageTitle');
 
-        // VERSION SPECIFIC CODE
-        // Remove version_compare conditional when 2.1 becomes required by this app.
-        // Runs if Vanilla version is greater than or equal to 2.1b1.
-        if (version_compare(APPLICATION_VERSION, '2.1b1', '>=')) {
-            $this->AddModule('DiscussionsModule');
-            $this->AddModule('RecentActivityModule');
-        }
+            $DefaultControllerDestination = Gdn::Router()->GetDestination('DefaultController');
+            if (($Title != '') && (strpos($DefaultControllerDestination, 'page/' . $Page->UrlCode) !== false)) {
+                // If the page is set as DefaultController.
+                $this->Title($Title, '');
 
-        // VERSION SPECIFIC CODE
-        // Remove version_compare conditional when 2.1 becomes required by this app.
-        // Runs if Vanilla version is greater than or equal to 2.1b1.
-        if (version_compare(APPLICATION_VERSION, '2.1b1', '>=')) {
-            // Setup head.
-            if (!$this->Data('Title')) {
-                $Title = C('Garden.HomepageTitle');
+                // Add description meta tag.
+                $this->Description(C('Garden.Description', null));
+            } else {
+                // If the page is NOT the DefaultController.
+                $this->Title($Page->Name);
 
-                $DefaultControllerDestination = Gdn::Router()->GetDestination('DefaultController');
-                if (($Title != '') && (strpos($DefaultControllerDestination, 'page/' . $Page->UrlCode) !== false)) {
-                    // If the page is set as DefaultController.
-                    $this->Title($Title, '');
-
-                    // Add description meta tag.
-                    $this->Description(C('Garden.Description', null));
-                } else {
-                    // If the page is NOT the DefaultController.
-                    $this->Title($Page->Name);
-
-                    // Add description meta tag.
-                    $this->Description(SliceParagraph(Gdn_Format::PlainText($Page->Body, $Page->Format), 160));
-                }
+                // Add description meta tag.
+                $this->Description(SliceParagraph(Gdn_Format::PlainText($Page->Body, $Page->Format), 160));
             }
-        } else {
-            // Runs if Vanilla version is NOT greater than or equal to 2.1b1.
-            $this->Title($Page->Name);
         }
 
         $this->Render();

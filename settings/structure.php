@@ -48,13 +48,6 @@ $Validation = new Gdn_Validation(); // To validate permissions (if necessary).
 // Construct the Page table.
 $Construct->Table('Page');
 
-// VERSION SPECIFIC CODE
-// Remove version_compare conditional when 2.1 becomes required by this app.
-// Runs if Vanilla version is NOT greater than or equal to 2.1b1.
-$PageBodyColumnType = 'longtext';
-if (!version_compare(APPLICATION_VERSION, '2.1b1', '>='))
-    $PageBodyColumnType = 'text'; // Vanilla 2.0.18.8 does not allow longtext.
-
 $Construct
     ->PrimaryKey('PageID')
     ->Column('Sort', 'int', true)
@@ -62,7 +55,7 @@ $Construct
     ->Column('UpdateUserID', 'int', true)
     ->Column('Name', 'varchar(100)', false, 'fulltext')
     ->Column('UrlCode', 'varchar(255)', false, 'unique')
-    ->Column('Body', $PageBodyColumnType, false, 'fulltext')
+    ->Column('Body', 'longtext', false, 'fulltext')
     ->Column('Format', 'varchar(20)', true)
     ->Column('DateInserted', 'datetime', false, 'index')
     ->Column('DateUpdated', 'datetime', true)

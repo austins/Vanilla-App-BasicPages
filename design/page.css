@@ -28,8 +28,3 @@ body.PageMobile .PageContent {
 body.PageMobile #PageBody a {
     word-wrap: break-word;
 }
-
-/* VERSION SPECIFIC CODE */
-body.PageMobile.Page20 .PageContent {
-    padding-top: 10px;
-}

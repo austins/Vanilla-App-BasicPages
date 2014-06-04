@@ -37,13 +37,7 @@ else {
         <div class="Options">
          <span class="ToggleFlyout OptionsMenu">
             <span class="OptionsTitle" title="<?php echo T('Options'); ?>"><?php echo T('Options'); ?></span>
-             <?php
-             // VERSION SPECIFIC CODE
-             // Remove version_compare conditional when 2.1 becomes required by this app.
-             // Runs if Vanilla version is greater than or equal to 2.1b1.
-             if (version_compare(APPLICATION_VERSION, '2.1b1', '>='))
-                 echo Sprite('SpFlyoutHandle', 'Arrow');
-             ?>
+             <?php echo Sprite('SpFlyoutHandle', 'Arrow'); ?>
              <ul class="Flyout MenuItems" style="display: none;">
                  <?php echo Wrap(Anchor(T('BasicPages.Settings.EditPage', 'Edit Page'),
                      'pagessettings/editpage/' . $Page->PageID, 'EditPage'), 'li'); ?>
