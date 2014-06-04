@@ -41,11 +41,11 @@ class PageModel extends Gdn_Model {
      *
      * @return object $Page; SQL results.
      */
-    public function Get($Offset = 0, $Limit = false, $Wheres = null) {
+    public function Get($Offset = 0, $Limit = null, $Wheres = null) {
         $this->SQL->Select('p.*')->From('Page p');
 
         // Assign up limits and offsets.
-        $Limit = $Limit ? $Limit : C('BasicPages.Pages.PerPage', 20);
+        $Limit = ($Limit !== null) ? $Limit : C('BasicPages.Pages.PerPage', 20);
         $Offset = is_numeric($Offset) ? (($Offset < 0) ? 0 : $Offset) : false;
 
         if (($Offset !== false) && ($Limit !== false))

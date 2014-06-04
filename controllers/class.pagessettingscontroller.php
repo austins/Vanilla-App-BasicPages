@@ -83,6 +83,9 @@ class PagesSettingsController extends Gdn_Controller {
         $IndexPage = PageNumber($Offset, $Limit);
 
         // Get page data
+        // Default the offset and limit to disable the pager, but keep the functionality available.
+        $Offset = 0;
+        $Limit = false;
         $this->SetData('Pages', $this->PageModel->Get($Offset, $Limit));
 
         // Build the pager.
