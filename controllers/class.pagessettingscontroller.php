@@ -77,7 +77,7 @@ class PagesSettingsController extends Gdn_Controller {
         $this->AddJsFile('js/library/nestedSortable.1.3.4/jquery.ui.nestedSortable.js');
         $this->AddJsFile('pagessettings-allpages.js');
 
-        // Determine offset from $Page
+        // Determine offset from $IndexPage
         $IndexPageLimit = C('BasicPages.Pages.PerPage', 20);
         list($Offset, $Limit) = OffsetLimit($IndexPage, $IndexPageLimit);
         $IndexPage = PageNumber($Offset, $Limit);
