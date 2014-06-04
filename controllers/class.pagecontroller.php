@@ -22,9 +22,30 @@ if (!defined('APPLICATION'))
 /**
  * The Page controller.
  */
-class PageController extends BasicPagesController {
+class PageController extends Gdn_Controller {
     /** @var array List of objects to prep. They will be available as $this->$Name. */
     public $Uses = array('PageModel');
+
+    /**
+     * Include JS, CSS, and modules used by all methods of this controller.
+     * Called by dispatcher before controller's requested method.
+     */
+    public function Initialize() {
+        if ($this->DeliveryType() == DELIVERY_TYPE_ALL)
+            $this->Head = new HeadModule($this);
+        $this->AddJsFile('jquery.js');
+        $this->AddJsFile('jquery.livequery.js');
+        $this->AddJsFile('jquery.form.js');
+        $this->AddJsFile('jquery.popup.js');
+        $this->AddJsFile('jquery.gardenhandleajaxform.js');
+        $this->AddJsFile('global.js');
+
+        $this->AddCssFile('style.css');
+
+        parent::Initialize();
+
+        $this->FireEvent('AfterInitialize');
+    }
 
     /**
      * Loads default page view.

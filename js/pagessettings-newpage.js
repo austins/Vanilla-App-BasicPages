@@ -16,9 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-jQuery(document).ready(function ($) {
+jQuery(document).ready(function($) {
     // Map plain text page name to url code.
-    $("#Form_Name").keyup(function (event) {
+    $("#Form_Name").keyup(function(event) {
         if ($('#Form_UrlCodeIsDefined').val() == '0') {
             $('#UrlCode').show();
             var val = $(this).val().replace(/[ \/\\&.?;,<>'"]+/g, '-')
@@ -29,13 +29,13 @@ jQuery(document).ready(function ($) {
     });
     // Make sure not to override any values set by the user.
     $('#UrlCode span').text($('#UrlCode input').val());
-    $("#Form_UrlCode").focus(function () {
+    $("#Form_UrlCode").focus(function() {
         $('#Form_UrlCodeIsDefined').val('1')
     });
     $('#UrlCode input, #UrlCode a.Save').hide();
 
     // Reveal input when "change" button is clicked.
-    $('#UrlCode a, #UrlCode span').click(function () {
+    $('#UrlCode a, #UrlCode span').click(function() {
         $('#UrlCode').find('input,span,a').toggle();
         $('#UrlCode span').text($('#UrlCode input').val());
         $('#UrlCode input').focus();
@@ -44,8 +44,25 @@ jQuery(document).ready(function ($) {
 
     // Attach autogrow function to page body textarea.
     if ($.autogrow) {
-        $('textarea.TextBox').livequery(function () {
+        $('textarea.TextBox').livequery(function() {
             $(this).autogrow();
         });
     }
+
+    // Show advanced options check box.
+    $('#AdvancedOptions input:checked').each(function() {
+        if ($(this).is(':checked')) {
+            $('#Form_ShowAdvancedOptions').attr('checked', true);
+            $('#AdvancedOptions').show();
+
+            return false;
+        }
+    });
+
+    $('#Form_ShowAdvancedOptions').click(function() {
+        if ($('#Form_ShowAdvancedOptions').is(':checked'))
+            $('#AdvancedOptions').show();
+        else
+            $('#AdvancedOptions').hide();
+    });
 });

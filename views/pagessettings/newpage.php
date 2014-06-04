@@ -19,6 +19,7 @@ if (!defined('APPLICATION'))
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+$Page = $this->Data('Page');
 $Session = Gdn::Session();
 ?>
     <h1><?php echo $this->Data('Title'); ?></h1>
@@ -48,41 +49,44 @@ echo $this->Form->Errors();
             <?php
             echo $this->Form->Label(T('BasicPages.Settings.NewPage.PageBody', 'Page Body'), 'Body');
 
-            // Include ButtonBar if it is enabled.
-            if (Gdn::PluginManager()->CheckPlugin('ButtonBar')) {
-                $ButtonBarView = Gdn::Controller()->FetchView('buttonbar', '', 'plugins/ButtonBar');
-                echo Wrap($ButtonBarView, 'div');
-            }
-
-            echo Wrap($this->Form->TextBox('Body',
+            echo Wrap($this->Form->BodyBox('Body',
                 array('MultiLine' => true, 'format' => 'Html', 'table' => 'Page', 'class' => 'TextBox BodyBox')), 'div',
                 array('class' => 'TextBoxWrapper'));
             echo $this->Form->Hidden('Format', array('Value' => 'Html'));
-
-            // Include HtmlHelp text if ButtonBar is not enabled.
-            if (!Gdn::PluginManager()->CheckPlugin('ButtonBar'))
-                echo Wrap(T('BasicPages.Settings.NewPage.HtmlHelp',
-                    'You can use <b><a href="http://htmlguide.drgrog.com/cheatsheet.php" target="_new">Simple HTML</a></b> in your post.'),
-                    'div', array('class' => 'PageBodyMarkupHint'));
             ?>
         </li>
-        <?php if ($Session->CheckPermission('Garden.Settings.Manage')): ?>
-            <li>
-                <?php echo $this->Form->CheckBox('RawBody', T('BasicPages.Settings.NewPage.PageRawBody',
-                    'Disable automatic body formatting and allow raw HTML?')); ?>
-            </li>
-        <?php endif; ?>
         <li>
-            <?php echo $this->Form->CheckBox('SiteMenuLink',
-                T('BasicPages.Settings.NewPage.PageShowSiteMenuLink', 'Show header site menu link?')); ?>
-        </li>
-        <li>
-            <?php echo $this->Form->CheckBox('HidePageFromURL',
-                T('BasicPages.Settings.NewPage.PageHidePageFromURL', 'Hide "/page" from the URL?')); ?>
-        </li>
-        <li>
-            <?php echo $this->Form->CheckBox('ViewPermission', T('BasicPages.Settings.NewPage.PageCustomViewPermission',
-                'Use custom view permission for roles? If unchecked, then this page will visible to anyone.')); ?>
+            <?php echo $this->Form->CheckBox('ShowAdvancedOptions', T('Show advanced options?')); ?>
+
+            <ul id="AdvancedOptions">
+                <li>
+                    <?php
+                    $Formats = array(
+                        'Html' => 'HTML',
+                        'Markdown' => 'Markdown',
+                        'BBCode' => 'BBCode',
+                        'RawHtml' => 'Raw HTML'
+                    );
+
+                    echo $this->Form->Label(T('Body Format'), 'Format');
+                    echo $this->Form->DropDown('Format', $Formats,
+                        array('Value' => GetValue('Format', $Page, C('Garden.InputFormatter', 'Html')))
+                    );
+                    ?>
+                </li>
+                <li>
+                    <?php echo $this->Form->CheckBox('SiteMenuLink',
+                        T('BasicPages.Settings.NewPage.PageShowSiteMenuLink', 'Show header site menu link?')); ?>
+                </li>
+                <li>
+                    <?php echo $this->Form->CheckBox('HidePageFromURL',
+                        T('BasicPages.Settings.NewPage.PageHidePageFromURL', 'Hide "/page" from the URL?')); ?>
+                </li>
+                <li>
+                    <?php echo $this->Form->CheckBox('ViewPermission', T('BasicPages.Settings.NewPage.PageCustomViewPermission',
+                        'Use custom view permission for roles? If unchecked, then this page will visible to anyone.')); ?>
+                </li>
+            </ul>
         </li>
     </ul>
     <div class="Buttons">

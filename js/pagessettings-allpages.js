@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-jQuery(document).ready(function ($) {
+jQuery(document).ready(function($) {
     if ($.ui && $.ui.nestedSortable) {
         $('ol.Sortable').nestedSortable({
             disableNesting: 'NoNesting',
@@ -30,14 +30,14 @@ jQuery(document).ready(function ($) {
             placeholder: 'Placeholder',
             tolerance: 'pointer',
             toleranceElement: '> div',
-            update: function () {
+            update: function() {
                 $.post(
                     gdn.url('/pagessettings/sortpages.json'),
                     {
                         'TreeArray': $('ol.Sortable').nestedSortable('toArray', {startDepthCount: 0}),
                         'TransientKey': gdn.definition('TransientKey')
                     },
-                    function (response) {
+                    function(response) {
                         if (!response || !response.Result) {
                             alert("Error: didn't save order properly.");
                         }

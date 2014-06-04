@@ -24,11 +24,11 @@ $Session = Gdn::Session();
 $Page = $this->Data('Page');
 
 // Format Body
-if ((int)$Page->RawBody === 0)
-    $FormatBody = Gdn_Format::To($Page->Body, $Page->Format);
-else {
+if ($Page->Format === 'RawHtml') {
     $FormatBody = preg_replace("/(\015\012)|(\015)|(\012)/", "<br />", $Page->Body);
     $FormatBody = FixNl2Br($FormatBody);
+} else {
+    $FormatBody = Gdn_Format::To($Page->Body, $Page->Format);
 }
 ?>
 <div id="Page_<?php echo $Page->PageID; ?>" class="PageContent Page-<?php echo $Page->UrlCode; ?>">

@@ -66,7 +66,7 @@ class BasicPagesHooks implements Gdn_IPlugin {
         // Variables to be used by structure.php.
         $Database = Gdn::Database();
         $Config = Gdn::Factory(Gdn::AliasConfig);
-        $Drop = Gdn::Config('BasicPages.Version') === false ? true : false;
+        $Drop = (Gdn::Config('BasicPages.Version') === false) ? true : false;
         $Explicit = true;
 
         // Needed by structure.php to validate permission names.

@@ -61,28 +61,30 @@ $Construct
     ->Column('DateUpdated', 'datetime', true)
     ->Column('InsertIPAddress', 'varchar(15)', true)
     ->Column('UpdateIPAddress', 'varchar(15)', true)
-    ->Column('RawBody', 'tinyint(1)', '0')
     ->Column('SiteMenuLink', 'tinyint(1)', '0')
     ->Column('ViewPermission', 'tinyint(1)', '0')
     ->Set($Explicit, $Drop);
 
-// Update procedures from previous versions to Basic Pages 1.5.
-// Update routes to pages with old expression suffix to new expression suffix.
-if (C('BasicPages.Version') && version_compare(C('BasicPages.Version'), '1.5', '<')) {
-    $PageModel = new PageModel();
-    $Pages = $PageModel->Get()->Result();
+// Update procedures from previous versions of Basic Pages.
+if (C('BasicPages.Version')) {
+    // For Basic Pages installations older than v1.5.
+    // Update routes to pages with old expression suffix to new expression suffix.
+    if (version_compare(C('BasicPages.Version'), '1.5', '<')) {
+        $PageModel = new PageModel();
+        $Pages = $PageModel->Get()->Result();
 
-    $OldRouteExpressionSuffix = '(/.*)?$';
+        $OldRouteExpressionSuffix = '(/.*)?$';
 
-    foreach ($Pages as $Page) {
-        if (Gdn::Router()->MatchRoute($Page->UrlCode . $OldRouteExpressionSuffix)) {
-            Gdn::Router()->DeleteRoute($Page->UrlCode . $OldRouteExpressionSuffix);
+        foreach ($Pages as $Page) {
+            if (Gdn::Router()->MatchRoute($Page->UrlCode . $OldRouteExpressionSuffix)) {
+                Gdn::Router()->DeleteRoute($Page->UrlCode . $OldRouteExpressionSuffix);
 
-            Gdn::Router()->SetRoute(
-                $Page->UrlCode . $PageModel->RouteExpressionSuffix,
-                'page/' . $Page->UrlCode . $PageModel->RouteTargetSuffix,
-                'Internal'
-            );
+                Gdn::Router()->SetRoute(
+                    $Page->UrlCode . $PageModel->RouteExpressionSuffix,
+                    'page/' . $Page->UrlCode . $PageModel->RouteTargetSuffix,
+                    'Internal'
+                );
+            }
         }
     }
 }

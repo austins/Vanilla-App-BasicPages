@@ -37,15 +37,22 @@ class PageModel extends Gdn_Model {
     public $RouteTargetSuffix = '$1';
 
     /**
-     * Get list of all pages.
+     * Get a set of pages.
      *
-     * @return object $Page; SQL results.
+     * @param int $Offset
+     * @param null $Limit
+     * @param null $Wheres
+     * @return Gdn_DataSet
      */
     public function Get($Offset = 0, $Limit = null, $Wheres = null) {
         $this->SQL->Select('p.*')->From('Page p');
 
         // Assign up limits and offsets.
-        $Limit = ($Limit !== null) ? $Limit : C('BasicPages.Pages.PerPage', 20);
+        if ($Limit === null)
+            $Limit = false;
+        else
+            $Limit = is_numeric($Limit) ? $Limit : C('BasicPages.Pages.PerPage', 20);
+
         $Offset = is_numeric($Offset) ? (($Offset < 0) ? 0 : $Offset) : false;
 
         if (($Offset !== false) && ($Limit !== false))
