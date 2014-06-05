@@ -26,6 +26,8 @@ class PageController extends Gdn_Controller {
     /** @var array List of objects to prep. They will be available as $this->$Name. */
     public $Uses = array('PageModel');
 
+    protected $Page = null;
+
     /**
      * Include JS, CSS, and modules used by all methods of this controller.
      * Called by dispatcher before controller's requested method.
@@ -53,7 +55,7 @@ class PageController extends Gdn_Controller {
      * @param string $PageUrlCode ; Unique page URL stub identifier.
      */
     public function Index($PageUrlCode = '') {
-        $Page = $this->PageModel->GetByUrlCode($PageUrlCode);
+        $this->Page = $this->PageModel->GetByUrlCode($PageUrlCode);
 
         // Require the custom view permission if it exists.
         // Otherwise, the page is public by default.
@@ -62,23 +64,20 @@ class PageController extends Gdn_Controller {
             $this->Permission($ViewPermissionName);
 
         // If page doesn't exist.
-        if ($Page == null) {
+        if ($this->Page == null) {
             throw new Exception(sprintf(T('%s Not Found'), T('Page')), 404);
 
             return null;
         }
 
-        // Get page data.
-        $this->SetData('Page', $Page);
-
         // Add body CSS class.
-        $this->CssClass = 'Page-' . $Page->UrlCode;
+        $this->CssClass = 'Page-' . $this->Page->UrlCode;
 
         if (IsMobile())
             $this->CssClass .= ' PageMobile';
 
         // Set the canonical URL to have the proper page link.
-        $this->CanonicalUrl(PageModel::PageUrl($Page));
+        $this->CanonicalUrl(PageModel::PageUrl($this->Page));
 
         // Add modules
         $this->AddModule('GuestModule');
@@ -98,7 +97,7 @@ class PageController extends Gdn_Controller {
             $Title = C('Garden.HomepageTitle');
 
             $DefaultControllerDestination = Gdn::Router()->GetDestination('DefaultController');
-            if (($Title != '') && (strpos($DefaultControllerDestination, 'page/' . $Page->UrlCode) !== false)) {
+            if (($Title != '') && (strpos($DefaultControllerDestination, 'page/' . $this->Page->UrlCode) !== false)) {
                 // If the page is set as DefaultController.
                 $this->Title($Title, '');
 
@@ -106,10 +105,10 @@ class PageController extends Gdn_Controller {
                 $this->Description(C('Garden.Description', null));
             } else {
                 // If the page is NOT the DefaultController.
-                $this->Title($Page->Name);
+                $this->Title($this->Page->Name);
 
                 // Add description meta tag.
-                $this->Description(SliceParagraph(Gdn_Format::PlainText($Page->Body, $Page->Format), 160));
+                $this->Description(SliceParagraph(Gdn_Format::PlainText($this->Page->Body, $this->Page->Format), 160));
             }
         }
 
