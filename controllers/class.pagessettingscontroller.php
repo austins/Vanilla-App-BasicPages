@@ -77,10 +77,10 @@ class PagesSettingsController extends Gdn_Controller {
         $this->AddJsFile('js/library/nestedSortable.1.3.4/jquery.ui.nestedSortable.js');
         $this->AddJsFile('pagessettings-allpages.js');
 
-        // Determine offset from $IndexPage
         $Offset = 0;
         $Limit = false;
         /* Disable pager for now, but keep functionality for later.
+        // Determine offset from $IndexPage
         $IndexPageLimit = C('BasicPages.Pages.PerPage', 20);
         list($Offset, $Limit) = OffsetLimit($IndexPage, $IndexPageLimit);
         $IndexPage = PageNumber($Offset, $Limit);
@@ -160,8 +160,9 @@ class PagesSettingsController extends Gdn_Controller {
         // Prep Model
         $this->Form->SetModel($this->PageModel);
 
+        // Set format data.
         $this->SetData('Formats', $this->GetFormats());
-        $this->AddDefinition('DefaultFormat', C('Garden.InputFormatter', 'Html'));
+        $this->AddDefinition('DefaultFormat', C('BasicPages.DefaultFormatter', C('Garden.InputFormatter', 'Html')));
 
         // If form wasn't submitted.
         if ($this->Form->IsPostBack() == false) {
