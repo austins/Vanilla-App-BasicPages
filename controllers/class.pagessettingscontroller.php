@@ -170,6 +170,9 @@ class PagesSettingsController extends Gdn_Controller {
             if (isset($Page)) {
                 $this->SetData('Page', $Page);
                 $this->Form->SetData($Page);
+
+                // Send CurrentFormat value to the page to be used for
+                // setting the selected value of the formats drop-down.
                 $this->AddDefinition('CurrentFormat', $Page->Format);
 
                 $this->Form->AddHidden('UrlCodeIsDefined', '1');
@@ -229,6 +232,8 @@ class PagesSettingsController extends Gdn_Controller {
                 $FormValues['Sort'] = $LastSort + 1;
             }
 
+            // Send CurrentFormat value to the page to be used for
+            // setting the selected value of the formats drop-down.
             $this->AddDefinition('CurrentFormat', $FormValues['Format']);
 
             // Explicitly cast these values to an integer data type in case
