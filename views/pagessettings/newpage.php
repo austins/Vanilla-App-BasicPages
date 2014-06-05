@@ -21,6 +21,11 @@ if (!defined('APPLICATION'))
 
 $Page = $this->Data('Page');
 $Session = Gdn::Session();
+
+if(isset($this->_Definitions['CurrentFormat']))
+    $FormatSelected = $this->_Definitions['CurrentFormat'];
+else
+    $FormatSelected = GetValue('Format', $Page, $this->_Definitions['DefaultFormat']);
 ?>
     <h1><?php echo $this->Data('Title'); ?></h1>
 <?php
@@ -50,7 +55,7 @@ echo $this->Form->Errors();
             echo $this->Form->Label(T('BasicPages.Settings.NewPage.PageBody', 'Page Body'), 'Body');
 
             echo Wrap($this->Form->BodyBox('Body',
-                array('MultiLine' => true, 'format' => 'Html', 'table' => 'Page', 'class' => 'TextBox BodyBox')), 'div',
+                array('MultiLine' => true, 'format' => $FormatSelected, 'table' => 'Page', 'class' => 'TextBox BodyBox')), 'div',
                 array('class' => 'TextBoxWrapper'));
             ?>
         </li>
@@ -60,11 +65,6 @@ echo $this->Form->Errors();
             <ul id="AdvancedOptions">
                 <li>
                     <?php
-                    if(isset($this->_Definitions['CurrentFormat']))
-                        $FormatSelected = $this->_Definitions['CurrentFormat'];
-                    else
-                        $FormatSelected = GetValue('Format', $Page, $this->_Definitions['DefaultFormat']);
-
                     echo $this->Form->Label(T('Body Format'), 'Format');
                     echo $this->Form->DropDown('Format', $this->Data('Formats'), array('Value' => $FormatSelected));
                     ?>
