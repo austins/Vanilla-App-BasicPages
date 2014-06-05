@@ -157,12 +157,16 @@ class PagesSettingsController extends Gdn_Controller {
         // Prep Model
         $this->Form->SetModel($this->PageModel);
 
+        $this->SetData('Formats', $this->GetFormats());
+        $this->AddDefinition('DefaultFormat', C('Garden.InputFormatter', 'Html'));
+
         // If form wasn't submitted.
         if ($this->Form->IsPostBack() == false) {
             // Prep form with current data for editing
             if (isset($Page)) {
                 $this->SetData('Page', $Page);
                 $this->Form->SetData($Page);
+                $this->AddDefinition('CurrentFormat', $Page->Format);
 
                 $this->Form->AddHidden('UrlCodeIsDefined', '1');
 
@@ -220,6 +224,8 @@ class PagesSettingsController extends Gdn_Controller {
                 $LastSort = $this->PageModel->GetLastSort();
                 $FormValues['Sort'] = $LastSort + 1;
             }
+
+            $this->AddDefinition('CurrentFormat', $FormValues['Format']);
 
             // Explicitly cast these values to an integer data type in case
             // they are equal to '' to be valid with MySQL strict mode, etc.
@@ -292,8 +298,18 @@ class PagesSettingsController extends Gdn_Controller {
                     $PermissionTable->DropColumn($ViewPermissionName);
                 }
 
-                if ($this->DeliveryType() == DELIVERY_TYPE_ALL)
-                    Redirect('pagessettings/allpages#Page_' . $PageID);
+                if ($this->DeliveryType() == DELIVERY_TYPE_ALL) {
+                    if (strtolower($this->RequestMethod) == 'newpage')
+                        Redirect('pagessettings/allpages#Page_' . $PageID);
+
+                    $this->InformMessage('<span class="InformSprite Check"></span>' . T('BasicPages.Settings.NewPage.Saved',
+                            'The page has been saved successfully. <br />Go back to ') .
+                        Anchor(T('BasicPages.Settings.AllPages', 'all pages'),
+                            'pagessettings/allpages') . T('BasicPages.Settings.NewPage.Saved2',
+                            ' or ') . Anchor(T('BasicPages.Settings.NewPage.ViewPage', 'view the page'),
+                            PageModel::PageUrl($Page)) . '.',
+                        'Dismissable AutoDismiss HasSprite');
+                }
             }
         }
 
@@ -306,6 +322,17 @@ class PagesSettingsController extends Gdn_Controller {
             $this->Title(T('BasicPages.Settings.NewPage', 'New Page'));
         }
         $this->Render();
+    }
+
+    private function GetFormats() {
+        $Formats = array(
+            'Html' => 'HTML',
+            'Markdown' => 'Markdown',
+            'BBCode' => 'BBCode',
+            'RawHtml' => 'Raw HTML'
+        );
+
+        return $Formats;
     }
 
     /**

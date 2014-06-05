@@ -52,7 +52,6 @@ echo $this->Form->Errors();
             echo Wrap($this->Form->BodyBox('Body',
                 array('MultiLine' => true, 'format' => 'Html', 'table' => 'Page', 'class' => 'TextBox BodyBox')), 'div',
                 array('class' => 'TextBoxWrapper'));
-            echo $this->Form->Hidden('Format', array('Value' => 'Html'));
             ?>
         </li>
         <li>
@@ -61,17 +60,13 @@ echo $this->Form->Errors();
             <ul id="AdvancedOptions">
                 <li>
                     <?php
-                    $Formats = array(
-                        'Html' => 'HTML',
-                        'Markdown' => 'Markdown',
-                        'BBCode' => 'BBCode',
-                        'RawHtml' => 'Raw HTML'
-                    );
+                    if(isset($this->_Definitions['CurrentFormat']))
+                        $FormatSelected = $this->_Definitions['CurrentFormat'];
+                    else
+                        $FormatSelected = GetValue('Format', $Page, C('Garden.InputFormatter', 'Html'));
 
                     echo $this->Form->Label(T('Body Format'), 'Format');
-                    echo $this->Form->DropDown('Format', $Formats,
-                        array('Value' => GetValue('Format', $Page, C('Garden.InputFormatter', 'Html')))
-                    );
+                    echo $this->Form->DropDown('Format', $this->Data('Formats'), array('Value' => $FormatSelected));
                     ?>
                 </li>
                 <li>

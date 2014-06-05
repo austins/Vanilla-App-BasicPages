@@ -59,6 +59,11 @@ jQuery(document).ready(function($) {
         }
     });
 
+    if ($('#AdvancedOptions #Form_Format1').val() != gdn.definition('DefaultFormat')) {
+        $('#Form_ShowAdvancedOptions').attr('checked', true);
+        $('#AdvancedOptions').show();
+    }
+
     $('#Form_ShowAdvancedOptions').click(function() {
         if ($('#Form_ShowAdvancedOptions').is(':checked'))
             $('#AdvancedOptions').show();
