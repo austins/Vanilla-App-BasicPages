@@ -49,17 +49,21 @@ $Pages = $this->Data('Pages')->Result();
 </div>
 
 <?php
+/* Disable pager for now, but keep functionality for later.
 $PagerOptions = array('Wrapper' => '<span class="PagerNub">&#160;</span><div %1$s>%2$s</div>', 'RecordCount' => $this->Data('CountPages'), 'CurrentRecords' => $this->Data('Pages')->NumRows());
 if ($this->Data('_PagerUrl'))
     $PagerOptions['Url'] = $this->Data('_PagerUrl');
+*/
 
 if (count($Pages) > 0):
     ?>
     <h1><?php echo T('BasicPages.Settings.AllPages.OrganizePages', 'Organize Pages'); ?></h1>
     <?php
+    /* Disable pager for now, but keep functionality for later.
     echo '<div class="PageControls Top">';
     PagerModule::Write($PagerOptions);
     echo '</div>';
+    */
     ?>
     <ol class="Sortable">
         <?php foreach ($Pages as $Page): ?>
@@ -89,9 +93,11 @@ if (count($Pages) > 0):
         <?php endforeach; ?>
     </ol>
     <?php
+    /* Disable pager for now, but keep functionality for later.
     echo '<div class="PageControls Bottom">';
     PagerModule::Write($PagerOptions);
     echo '</div>';
+    */
     ?>
 <?php
 else:

@@ -78,16 +78,18 @@ class PagesSettingsController extends Gdn_Controller {
         $this->AddJsFile('pagessettings-allpages.js');
 
         // Determine offset from $IndexPage
+        $Offset = 0;
+        $Limit = false;
+        /* Disable pager for now, but keep functionality for later.
         $IndexPageLimit = C('BasicPages.Pages.PerPage', 20);
         list($Offset, $Limit) = OffsetLimit($IndexPage, $IndexPageLimit);
         $IndexPage = PageNumber($Offset, $Limit);
+        */
 
         // Get page data
-        // Default the offset and limit to disable the pager, but keep the functionality available.
-        $Offset = 0;
-        $Limit = false;
         $this->SetData('Pages', $this->PageModel->Get($Offset, $Limit));
 
+        /* Disable pager for now, but keep functionality for later.
         // Build the pager.
         $CountPages = $this->PageModel->GetCount();
         $this->SetData('CountPages', $CountPages);
@@ -107,6 +109,7 @@ class PagesSettingsController extends Gdn_Controller {
         $this->SetData('_IndexPage', $IndexPage);
         $this->SetData('_Limit', $Limit);
         $this->FireEvent('AfterBuildPager');
+        */
 
         $this->AddSideMenu('pagessettings/allpages');
         $this->Title(T('BasicPages.Settings.AllPages', 'All Pages'));
