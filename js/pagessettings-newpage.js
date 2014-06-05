@@ -49,7 +49,15 @@ jQuery(document).ready(function($) {
         });
     }
 
-    // Show advanced options check box.
+    // Show advanced options.
+    if ($('#AdvancedOptions #Form_Format1').val() == gdn.definition('DefaultFormat'))
+        $('#Form_ShowAdvancedOptions').attr('checked', false);
+    else
+    {
+        $('#Form_ShowAdvancedOptions').attr('checked', true);
+        $('#AdvancedOptions').show();
+    }
+
     $('#AdvancedOptions input:checked').each(function() {
         if ($(this).is(':checked')) {
             $('#Form_ShowAdvancedOptions').attr('checked', true);
@@ -58,11 +66,6 @@ jQuery(document).ready(function($) {
             return false;
         }
     });
-
-    if ($('#AdvancedOptions #Form_Format1').val() != gdn.definition('DefaultFormat')) {
-        $('#Form_ShowAdvancedOptions').attr('checked', true);
-        $('#AdvancedOptions').show();
-    }
 
     $('#Form_ShowAdvancedOptions').click(function() {
         if ($('#Form_ShowAdvancedOptions').is(':checked'))
