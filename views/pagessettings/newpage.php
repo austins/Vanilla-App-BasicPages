@@ -63,7 +63,7 @@ echo $this->Form->Errors();
                     if(isset($this->_Definitions['CurrentFormat']))
                         $FormatSelected = $this->_Definitions['CurrentFormat'];
                     else
-                        $FormatSelected = GetValue('Format', $Page, C('Garden.InputFormatter', 'Html'));
+                        $FormatSelected = GetValue('Format', $Page, $this->_Definitions['DefaultFormat']);
 
                     echo $this->Form->Label(T('Body Format'), 'Format');
                     echo $this->Form->DropDown('Format', $this->Data('Formats'), array('Value' => $FormatSelected));
