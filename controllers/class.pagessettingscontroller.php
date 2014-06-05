@@ -276,7 +276,7 @@ class PagesSettingsController extends Gdn_Controller {
                 // and rename the custom view permission column for the page if it exists accordingly,
                 // to keep the permission table clean.
                 if (isset($Page) && ($Page->UrlCode != $FormValues['UrlCode'])) {
-                    $OldViewPermissionName = 'BasicPages.' . $ValidPageID->UrlCode . '.View';
+                    $OldViewPermissionName = 'BasicPages.' . $Page->UrlCode . '.View';
 
                     if ($PermissionTable->ColumnExists($OldViewPermissionName))
                         $PermissionTable->DropColumn($OldViewPermissionName);
