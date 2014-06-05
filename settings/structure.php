@@ -50,19 +50,19 @@ $Construct->Table('Page');
 
 $Construct
     ->PrimaryKey('PageID')
-    ->Column('Sort', 'int', true)
-    ->Column('InsertUserID', 'int', false, 'key')
-    ->Column('UpdateUserID', 'int', true)
     ->Column('Name', 'varchar(100)', false, 'fulltext')
     ->Column('UrlCode', 'varchar(255)', false, 'unique')
     ->Column('Body', 'longtext', false, 'fulltext')
     ->Column('Format', 'varchar(20)', true)
     ->Column('DateInserted', 'datetime', false, 'index')
     ->Column('DateUpdated', 'datetime', true)
-    ->Column('InsertIPAddress', 'varchar(15)', true)
-    ->Column('UpdateIPAddress', 'varchar(15)', true)
+    ->Column('Sort', 'int', true)
     ->Column('SiteMenuLink', 'tinyint(1)', '0')
     ->Column('ViewPermission', 'tinyint(1)', '0')
+    ->Column('InsertUserID', 'int', false, 'key')
+    ->Column('UpdateUserID', 'int', true)
+    ->Column('InsertIPAddress', 'varchar(15)', true)
+    ->Column('UpdateIPAddress', 'varchar(15)', true)
     ->Set($Explicit, $Drop);
 
 // Update procedures from previous versions of Basic Pages.
