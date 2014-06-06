@@ -316,7 +316,7 @@ class PagesSettingsController extends Gdn_Controller {
                         Anchor(T('BasicPages.Settings.AllPages', 'all pages'),
                             'pagessettings/allpages') . T('BasicPages.Settings.NewPage.Saved2',
                             ' or ') . Anchor(T('BasicPages.Settings.NewPage.ViewPage', 'view the page'),
-                            PageModel::PageUrl($Page)) . '.',
+                            PageModel::PageUrl($FormValues['UrlCode'])) . '.',
                         'Dismissable AutoDismiss HasSprite');
                 }
             }

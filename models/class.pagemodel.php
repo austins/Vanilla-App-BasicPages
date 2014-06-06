@@ -156,18 +156,21 @@ class PageModel extends Gdn_Model {
     /**
      * Return a url for a page.
      *
-     * @param object $Page ; Page object.
+     * @param object $UrlCode ; Page URL code.
      * @param object $WithDomain ; Return with domain in URL.
      * @return string; The URL to the page.
      */
-    public static function PageUrl($Page, $WithDomain = true) {
-        $Page = (array)$Page;
+    public static function PageUrl($UrlCode, $WithDomain = true) {
+        if(is_array($UrlCode))
+            $UrlCode = $UrlCode['UrlCode'];
+        else if(is_object($UrlCode))
+            $UrlCode = $UrlCode->UrlCode;
 
         $PageModel = new PageModel();
-        if (Gdn::Router()->MatchRoute($Page['UrlCode'] . $PageModel->RouteExpressionSuffix)) {
-            $Result = rawurlencode($Page['UrlCode']);
+        if (Gdn::Router()->MatchRoute($UrlCode . $PageModel->RouteExpressionSuffix)) {
+            $Result = rawurlencode($UrlCode);
         } else {
-            $Result = '/page/' . rawurlencode($Page['UrlCode']);
+            $Result = '/page/' . rawurlencode($UrlCode);
         }
 
         return Url($Result, $WithDomain);
