@@ -21,12 +21,13 @@ if (!defined('APPLICATION'))
 
 $Session = Gdn::Session();
 
-// Format Body
+// Format page body.
+$PageBody = $this->Page->Body;
 if ($this->Page->Format === 'RawHtmlLineBreaks') {
-    $FormatBody = preg_replace("/(\015\012)|(\015)|(\012)/", "<br />", $this->Page->Body);
-    $FormatBody = FixNl2Br($FormatBody);
+    $PageBody = preg_replace("/(\015\012)|(\015)|(\012)/", "<br />", $PageBody);
+    $PageBody = FixNl2Br($PageBody);
 } else if ($this->Page->Format !== 'RawHtml') {
-    $FormatBody = Gdn_Format::To($this->Page->Body, $this->Page->Format);
+    $PageBody = Gdn_Format::To($PageBody, $this->Page->Format);
 }
 ?>
 <div id="Page_<?php echo $this->Page->PageID; ?>" class="PageContent Page-<?php echo $this->Page->UrlCode; ?>">
@@ -45,6 +46,6 @@ if ($this->Page->Format === 'RawHtmlLineBreaks') {
     <?php endif; ?>
     <h1 id="PageTitle" class="H"><?php echo $this->Page->Name; ?></h1>
     <?php $this->FireEvent('AfterPageTitle'); ?>
-    <div id="PageBody"><?php echo $FormatBody; ?></div>
+    <div id="PageBody"><?php echo $PageBody; ?></div>
     <?php $this->FireEvent('AfterPageBody'); ?>
 </div>
