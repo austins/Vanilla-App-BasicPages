@@ -338,7 +338,8 @@ class PagesSettingsController extends Gdn_Controller {
             'Html' => 'HTML',
             'Markdown' => 'Markdown',
             'BBCode' => 'BBCode',
-            'RawHtml' => 'Raw HTML'
+            'RawHtml' => 'Raw HTML',
+            'RawHtmlLineBreaks' => 'Raw HTML (Automatic Line Breaks)'
         );
 
         return $Formats;

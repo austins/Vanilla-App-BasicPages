@@ -22,10 +22,10 @@ if (!defined('APPLICATION'))
 $Session = Gdn::Session();
 
 // Format Body
-if ($this->Page->Format === 'RawHtml') {
+if ($this->Page->Format === 'RawHtmlLineBreaks') {
     $FormatBody = preg_replace("/(\015\012)|(\015)|(\012)/", "<br />", $this->Page->Body);
     $FormatBody = FixNl2Br($FormatBody);
-} else {
+} else if ($this->Page->Format !== 'RawHtml') {
     $FormatBody = Gdn_Format::To($this->Page->Body, $this->Page->Format);
 }
 ?>
