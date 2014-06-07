@@ -78,7 +78,7 @@ class PagesSettingsController extends Gdn_Controller {
         $this->AddJsFile('pagessettings-allpages.js');
 
         $Offset = 0;
-        $Limit = false;
+        $Limit = null;
         /* Disable pager for now, but keep functionality for later.
         // Determine offset from $IndexPage
         $IndexPageLimit = C('BasicPages.Pages.PerPage', 20);
