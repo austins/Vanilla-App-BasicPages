@@ -19,9 +19,7 @@ if (!defined('APPLICATION'))
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * An associative array of information about this application.
- */
+// An associative array of information about this application.
 $ApplicationInfo['BasicPages'] = array(
     'Name' => 'Basic Pages',
     'Description' => "Basic Pages is an application that provides a way for you to create basic public pages for static content in Garden.",
