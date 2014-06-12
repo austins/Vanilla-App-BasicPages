@@ -60,6 +60,44 @@ class BasicPagesHooks implements Gdn_IPlugin {
     }
 
     /**
+     * If the Garden.PrivateCommunity config setting is enabled,
+     * then bypass the sign-in redirection and let the Basic Pages
+     * view permission logic handle the redirection for
+     * pages requested by guests.
+     *
+     * @param $Sender Gdn_Dispatcher
+     */
+    public function Gdn_Dispatcher_BeforeBlockDetect_Handler($Sender) {
+        if (C('Garden.PrivateCommunity', false)) {
+            $BlockExceptions =& $Sender->EventArguments['BlockExceptions'];
+            $PathRequest = Gdn::Request()->Path();
+            $PageModel = new PageModel();
+
+            // Handle path requests that match "page/urlcode"
+            $PathMatch = 'page/';
+            if (substr($PathRequest, 0, strlen($PathMatch)) === $PathMatch) {
+                $Page = $PageModel->GetByUrlCode(substr($PathRequest, strlen($PathMatch), strlen($PathRequest)));
+
+                // Only bypass Garden.PrivateCommunity redirection if custom page view permission is enabled.
+                if (isset($Page->ViewPermission) && (bool)$Page->ViewPermission)
+                    $BlockExceptions['/^page(\/.*)?$/'] = Gdn_Dispatcher::BLOCK_NEVER;
+            } else if (!strstr($PathRequest, '/')) {
+                // NOTE: Increases overhead every time the Dispatch method is called.
+                //       There is room for optimization to be done here.
+                //
+                // Handle path requests which don't contain a forward slash
+                // because the request could possibly be for a page with
+                // a path of "urlcode"
+                $Page = $PageModel->GetByUrlCode($PathRequest);
+
+                // Only bypass Garden.PrivateCommunity redirection if custom page view permission is enabled.
+                if (isset($Page->ViewPermission) && (bool)$Page->ViewPermission)
+                    $BlockExceptions['/^' . $PathRequest . '(\/.*)?$/'] = Gdn_Dispatcher::BLOCK_NEVER;
+            }
+        }
+    }
+
+    /**
      * Special function automatically run upon clicking 'Enable' on this application.
      */
     public function Setup() {
