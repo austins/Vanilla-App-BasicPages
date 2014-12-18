@@ -1,6 +1,4 @@
-<?php
-if (!defined('APPLICATION'))
-    exit();
+<?php defined('APPLICATION') or exit();
 /**
  * Basic Pages - An application for Garden & Vanilla Forums.
  * Copyright (C) 2013  Shadowdare
