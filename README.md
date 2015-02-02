@@ -2,7 +2,7 @@
 
 Basic Pages is an application for Vanilla Forums that provides a way for you to create basic pages.
 
-This application is licensed under the GPLv3.
+This application is released under the GNU GPL2 license.
 
 ## Installation
 
