@@ -67,6 +67,8 @@ class PageController extends Gdn_Controller {
             return null;
         }
 
+        $this->SetData('Page', $this->Page, false);
+
         // Add body CSS class.
         $this->CssClass = 'Page-' . $this->Page->UrlCode;
 
