@@ -1,6 +1,6 @@
 <?php defined('APPLICATION') or exit();
 /**
- * Copyright (C) 2013  Shadowdare
+ * Copyright (C) 2013  Austin S.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -20,10 +20,10 @@
 $ApplicationInfo['BasicPages'] = array(
     'Name' => 'Basic Pages',
     'Description' => "Basic Pages is an application that provides a way for you to create basic public pages for static content in Garden.",
-    'Version' => '2.1.4',
+    'Version' => '2.1.5',
     'RequiredApplications' => array('Vanilla' => '2.1'),
-    'Author' => "Shadowdare",
-    'AuthorUrl' => 'http://vanillaforums.org/profile/addons/16014/Shadowdare',
+    'Author' => "Austin S.",
+    'AuthorUrl' => 'https://github.com/austins',
     'Url' => 'http://vanillaforums.org/addon/basicpages-application',
     'License' => 'GNU GPL2',
     'SetupController' => 'setup',

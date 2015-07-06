@@ -9,7 +9,7 @@ $Pages = $this->Data('Pages')->Result();
 </div>
 <div class="Info">
     <?php echo T('BasicPages.Settings.AllPages.Welcome', 'Welcome to the Basic Pages application by'); ?> <a
-        href="http://vanillaforums.org/profile/addons/16014/Shadowdare" target="_blank">Shadowdare</a>!
+        href="https://github.com/austins" target="_blank">Austin S.</a>!
 
     <br/><br/><?php echo T('BasicPages.Settings.AllPages.Donate',
         'If you find this application useful and would like to support the developer, please make a donation.'); ?>

@@ -14,4 +14,4 @@ There are two ways to download this application:
 Once you have added the application to your Vanilla installation, you need to activate it in the admin dashboard. Once activated, you will see a new "Pages" menu in the dashboard sidebar where you may start using the application.
 
 ------------------------------
-Copyright © 2013 Shadowdare.
+Copyright © 2013 Austin S.
