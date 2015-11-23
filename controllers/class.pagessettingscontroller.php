@@ -150,10 +150,6 @@ class PagesSettingsController extends Gdn_Controller {
         $this->AddJsFile('jquery.autogrow.js');
         $this->AddJsFile('pagessettings-newpage.js');
 
-        // Temporary fix for loading ButtonBar CSS file if ButtonBar is enabled.
-        if (Gdn::PluginManager()->CheckPlugin('ButtonBar'))
-            $this->AddCssFile('buttonbar.css', 'plugins/ButtonBar');
-
         // Prep Model
         $this->Form->SetModel($this->PageModel);
 

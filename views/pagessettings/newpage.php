@@ -34,8 +34,8 @@ echo $this->Form->Errors();
             <?php
             echo $this->Form->Label(T('BasicPages.Settings.NewPage.PageBody', 'Page Body'), 'Body');
 
-            echo Wrap($this->Form->BodyBox('Body',
-                array('MultiLine' => true, 'format' => $FormatSelected, 'table' => 'Page', 'class' => 'TextBox BodyBox')), 'div',
+            echo Wrap($this->Form->TextBox('Body',
+                array('MultiLine' => true, 'format' => $FormatSelected, 'table' => 'Page', 'class' => 'TextBox')), 'div',
                 array('class' => 'TextBoxWrapper'));
             ?>
         </li>
