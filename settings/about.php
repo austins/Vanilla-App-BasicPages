@@ -20,7 +20,7 @@
 $ApplicationInfo['BasicPages'] = array(
     'Name' => 'Basic Pages',
     'Description' => "Basic Pages is an application that provides a way for you to create basic public pages for static content in Garden.",
-    'Version' => '2.1.5',
+    'Version' => '2.1.6',
     'RequiredApplications' => array('Vanilla' => '2.1'),
     'Author' => "Austin S.",
     'AuthorUrl' => 'https://github.com/austins',
