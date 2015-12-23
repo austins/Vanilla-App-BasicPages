@@ -48,7 +48,7 @@ $Construct->Table('Page');
 $Construct
     ->PrimaryKey('PageID')
     ->Column('Name', 'varchar(100)', false, 'fulltext')
-    ->Column('UrlCode', 'varchar(255)', false, 'unique')
+    ->Column('UrlCode', 'varchar(100)', false, 'unique')
     ->Column('Body', 'longtext', false, 'fulltext')
     ->Column('Format', 'varchar(20)', true)
     ->Column('DateInserted', 'datetime', false, 'index')
