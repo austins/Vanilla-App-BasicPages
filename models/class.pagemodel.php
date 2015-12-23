@@ -30,8 +30,8 @@ class PageModel extends Gdn_Model {
     }
 
     /** @var string Route suffixes for expression and target. */
-    public $RouteExpressionSuffix = '(.*)';
-    public $RouteTargetSuffix = '$1';
+    public $RouteExpressionSuffix = '$';
+    public $RouteTargetSuffix = '';
 
     /**
      * Get a set of pages.
