@@ -89,5 +89,5 @@ if (C('BasicPages.Version')) {
 // Set current BasicPages.Version everytime the application is enabled.
 $ApplicationInfo = array();
 include(CombinePaths(array(PATH_APPLICATIONS . DS . 'basicpages' . DS . 'settings' . DS . 'about.php')));
-$Version = ArrayValue('Version', ArrayValue('BasicPages', $ApplicationInfo, array()), 'Undefined');
+$Version = val('Version', val('BasicPages', $ApplicationInfo, array()), 'Undefined');
 SaveToConfig('BasicPages.Version', $Version);
