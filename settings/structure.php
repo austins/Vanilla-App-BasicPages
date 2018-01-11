@@ -86,8 +86,6 @@ if (C('BasicPages.Version')) {
     }
 }
 
-// Set current BasicPages.Version everytime the application is enabled.
-$ApplicationInfo = array();
-include(CombinePaths(array(PATH_APPLICATIONS . DS . 'basicpages' . DS . 'settings' . DS . 'about.php')));
-$Version = val('Version', val('BasicPages', $ApplicationInfo, array()), 'Undefined');
-SaveToConfig('BasicPages.Version', $Version);
+// Set current BasicPages.Version every time the application is enabled.
+$appInfo = json_decode(file_get_contents(PATH_APPLICATIONS . DS . 'basicpages' . DS . 'addon.json'), true);
+saveToConfig('BasicPages.Version', val('version', $appInfo, 'Undefined'));

@@ -1,0 +1,21 @@
+{
+  "key": "basicpages",
+  "name": "Basic Pages",
+  "description": "Basic Pages is an application that provides a way for you to create basic public pages for static content in Garden.",
+  "version": "2.1.8a1",
+  "url": "http://vanillaforums.org/addon/basicpages-application",
+  "license": "GNU GPL v2",
+  "authors": [
+    {
+      "name": "Austin S.",
+      "homepage": "https://github.com/austins"
+    }
+  ],
+  "icon": "basicpages.png",
+  "type": "addon",
+  "require": {
+    "vanilla": ">=2.5"
+  },
+  "setupController": "setup",
+  "settingsUrl": "/pagessettings/allpages"
+}
