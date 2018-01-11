@@ -1,6 +1,6 @@
 <?php defined('APPLICATION') or exit(); // Make sure this file can't get accessed directly
 /**
- * Copyright (C) 2013  Austin S.
+ * Copyright (C) 2013-2018  Austin S.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
