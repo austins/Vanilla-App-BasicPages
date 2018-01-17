@@ -244,7 +244,7 @@ class PagesSettingsController extends Gdn_Controller {
                     // Check if the permission does not exist.
                     if (!$ViewPermissionExists) {
                         // Create the custom view permission.
-                        $PermissionModel->Define($ViewPermissionName);
+                        $PermissionModel->Define(array($ViewPermissionName => 0));
 
                         // Set initial permission for the Administrator role.
                         $PermissionModel->Save(array(
