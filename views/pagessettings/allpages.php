@@ -22,9 +22,7 @@ $Pages = $this->Data('Pages')->Result();
 <div class="padded">
     <h2 class="subheading"><?php echo T('BasicPages.Settings.AllPages.ManagePages', 'Manage Pages'); ?></h2>
 
-    <?php echo T('BasicPages.Settings.AllPages.Info', 'With this application, you can create basic pages.'); ?>
-
-    <br><br><?php echo T('BasicPages.Settings.AllPages.GetStarted',
+    <?php echo T('BasicPages.Settings.AllPages.GetStarted',
         'Get started by clicking the button below to create a new page.'); ?>
 
     <br><br><?php echo Anchor(T('BasicPages.Settings.NewPage', 'New Page'), '/pagessettings/newpage', 'btn btn-primary'); ?>
