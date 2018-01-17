@@ -258,16 +258,7 @@ class PagesSettingsController extends Gdn_Controller {
                 }
 
                 if ($this->DeliveryType() == DELIVERY_TYPE_ALL) {
-                    if (strtolower($this->RequestMethod) == 'newpage')
-                        Redirect('pagessettings/allpages#Page_' . $PageID);
-
-                    $this->InformMessage('<span class="InformSprite Check"></span>' . T('BasicPages.Settings.NewPage.Saved',
-                            'The page has been saved successfully. <br />Go back to ') .
-                        Anchor(T('BasicPages.Settings.AllPages', 'all pages'),
-                            'pagessettings/allpages') . T('BasicPages.Settings.NewPage.Saved2',
-                            ' or ') . Anchor(T('BasicPages.Settings.NewPage.ViewPage', 'view the page'),
-                            PageModel::PageUrl($FormValues['UrlCode'])) . '.',
-                        'Dismissable AutoDismiss HasSprite');
+                    $this->setRedirectTo('pagessettings/allpages#Page_' . $PageID);
                 }
             }
         }
