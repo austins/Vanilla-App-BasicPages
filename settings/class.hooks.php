@@ -45,15 +45,14 @@ class BasicPagesHooks implements Gdn_IPlugin {
 
     /**
      * Add links to the settings of this application in the admin dashboard.
+     *
+     * @param DashboardNavModule $sender
      */
-    public function Base_GetAppSettingsMenuItems_Handler($Sender) {
-        $Menu = $Sender->EventArguments['SideMenu'];
-        $Section = 'Pages';
-        $Namespace = 'pagessettings/';
-        $Menu->AddLink($Section, T('BasicPages.Settings.AllPages', 'All Pages'), $Namespace . 'allpages',
-            'Garden.Settings.Manage');
-        $Menu->AddLink($Section, T('BasicPages.Settings.NewPage', 'New Page'), $Namespace . 'newpage',
-            'Garden.Settings.Manage');
+    public function dashboardNavModule_init_handler($sender) {
+        $sender->addGroup('Basic Pages', 'basicpages');
+
+        $sender->addLinkIf('Garden.Settings.Manage', t('BasicPages.Settings.AllPages', 'All Pages'), '/pagessettings/allpages', 'basicpages.allpages')
+            ->addLinkIf('Garden.Settings.Manage', t('BasicPages.Settings.NewPage', 'New Page'), '/pagessettings/newpage', 'basicpages.newpage');
     }
 
     /**
