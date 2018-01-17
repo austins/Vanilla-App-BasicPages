@@ -21,7 +21,7 @@ echo $this->Form->Errors();
         </li>
         <li id="UrlCode">
             <?php
-            echo Wrap(T('BasicPages.Settings.NewPage.PageUrl', 'Page URL:'), 'strong') . ' ';
+            echo Wrap(T('BasicPages.Settings.PageUrl', 'Page URL'), 'strong') . ': ';
             echo Gdn::Request()->Url('page', true);
             echo '/';
             echo Wrap(htmlspecialchars($this->Form->GetValue('UrlCode')));

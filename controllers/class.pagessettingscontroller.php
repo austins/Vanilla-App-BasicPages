@@ -62,51 +62,8 @@ class PagesSettingsController extends Gdn_Controller {
         // Check permission
         $this->Permission('Garden.Settings.Manage');
 
-        if (version_compare(APPLICATION_VERSION, '2.2', '>=')) {
-            // Version 2.2+
-            // Version 2.1b1 doesn't have the new jQuery.
-            // Nested sortable breaks with updated jQuery, so include old jQuery.
-            $this->RemoveJsFile('jquery.js');
-            $this->AddJsFile('js/library/nestedSortable.1.3.4/jquery-1.7.2.min.js', '', array('Sort' => 0));
-        }
-
-        $this->AddJsFile('js/library/nestedSortable.1.3.4/jquery-ui-1.8.11.custom.min.js');
-        $this->AddJsFile('js/library/nestedSortable.1.3.4/jquery.ui.nestedSortable.js');
-        $this->AddJsFile('pagessettings-allpages.js');
-
-        $Offset = 0;
-        $Limit = null;
-        /* Disable pager for now, but keep functionality for later.
-        // Determine offset from $IndexPage
-        $IndexPageLimit = C('BasicPages.Pages.PerPage', 20);
-        list($Offset, $Limit) = OffsetLimit($IndexPage, $IndexPageLimit);
-        $IndexPage = PageNumber($Offset, $Limit);
-        */
-
         // Get page data
-        $this->SetData('Pages', $this->PageModel->Get($Offset, $Limit));
-
-        /* Disable pager for now, but keep functionality for later.
-        // Build the pager.
-        $CountPages = $this->PageModel->GetCount();
-        $this->SetData('CountPages', $CountPages);
-        $PagerFactory = new Gdn_PagerFactory();
-        $this->EventArguments['PagerType'] = 'Pager';
-        $this->FireEvent('BeforeBuildPager');
-        $this->Pager = $PagerFactory->GetPager($this->EventArguments['PagerType'], $this);
-        $this->Pager->ClientID = 'Pager';
-        $this->Pager->Configure(
-            $Offset,
-            $Limit,
-            $CountPages,
-            '/pagessettings/allpages/%1$s/'
-        );
-        if (!$this->Data('_PagerUrl'))
-            $this->SetData('_PagerUrl', '/pagessettings/allpages/{Page}/');
-        $this->SetData('_IndexPage', $IndexPage);
-        $this->SetData('_Limit', $Limit);
-        $this->FireEvent('AfterBuildPager');
-        */
+        $this->SetData('Pages', $this->PageModel->Get());
 
         $this->AddSideMenu('pagessettings/allpages');
         $this->Title(T('BasicPages.Settings.AllPages', 'All Pages'));
