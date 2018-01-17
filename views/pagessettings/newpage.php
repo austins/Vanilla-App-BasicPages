@@ -5,7 +5,7 @@ $Session = Gdn::Session();
 if (isset($this->_Definitions['CurrentFormat'])) {
     $FormatSelected = $this->_Definitions['CurrentFormat'];
 } else {
-    $FormatSelected = GetValue('Format', $Page, $this->_Definitions['DefaultFormat']);
+    $FormatSelected = val('Format', $Page, $this->_Definitions['DefaultFormat']);
 }
 
 echo heading($this->data('Title'), '', '', [], '/pagessettings/allpages');

@@ -32,20 +32,26 @@ jQuery(document).ready(function($) {
     }
 
     // Show advanced options.
-    if ($('#AdvancedOptions #Form_Format').val() == gdn.definition('DefaultFormat'))
-        $('#Form_ShowAdvancedOptions').attr('checked', false);
-    else
-    {
+    var isAdvancedOptionsClicked = false;
+
+    function showAdvancedOptions() {
+        if (!isAdvancedOptionsClicked) {
+            $('#AdvancedOptionsToggle').find(".iCheck-helper").trigger('click');
+            isAdvancedOptionsClicked = true;
+        }
+
         $('#Form_ShowAdvancedOptions').attr('checked', true);
         $('#AdvancedOptions').show();
     }
 
+    if ($('#AdvancedOptions #Form_Format').val() == gdn.definition('DefaultFormat'))
+        $('#Form_ShowAdvancedOptions').attr('checked', false);
+    else
+        showAdvancedOptions();
+
     $('#AdvancedOptions input:checked').each(function() {
         if ($(this).is(':checked')) {
-            $('#AdvancedOptionsToggle').find(".iCheck-helper").trigger('click');
-            $('#Form_ShowAdvancedOptions').attr('checked', true);
-
-            $('#AdvancedOptions').show();
+            showAdvancedOptions();
 
             return false;
         }
