@@ -73,29 +73,6 @@ class PagesSettingsController extends Gdn_Controller {
     }
 
     /**
-     * Sorting display order of pages.
-     * Accessed by AJAX so its default is to only output true/false.
-     */
-    public function SortPages() {
-        // Check permission
-        $this->Permission('Garden.Settings.Manage');
-
-        // Set delivery type to true/false.
-        $TransientKey = GetIncomingValue('TransientKey');
-
-        $ValidTransient = Gdn::Request()->IsPostBack();
-        if ($ValidTransient) {
-            $TreeArray = GetValue('TreeArray', $_POST);
-            $Saves = $this->PageModel->SaveSort($TreeArray);
-            $this->SetData('Result', true);
-            $this->SetData('Saves', $Saves);
-        }
-
-        // Renders true/false instead of template.
-        $this->Render();
-    }
-
-    /**
      * Loads view for creating a new page.
      *
      * @param object $Page ; Not NULL when editing a valid page.

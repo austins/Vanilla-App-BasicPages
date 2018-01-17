@@ -141,15 +141,6 @@ class PageModel extends Gdn_Model {
         return $LastSort;
     }
 
-    public function SaveSort($TreeArray) {
-        foreach ($TreeArray as $I => $Node) {
-            $PageID = GetValue('item_id', $Node);
-            $this->SQL
-                ->Update('Page', array('Sort' => $Node['left']), array('PageID' => $PageID))
-                ->Put();
-        }
-    }
-
     /**
      * Return a url for a page.
      *
