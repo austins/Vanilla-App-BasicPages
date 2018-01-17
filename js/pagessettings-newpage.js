@@ -32,7 +32,7 @@ jQuery(document).ready(function($) {
     }
 
     // Show advanced options.
-    if ($('#AdvancedOptions #Form_Format1').val() == gdn.definition('DefaultFormat'))
+    if ($('#AdvancedOptions #Form_Format').val() == gdn.definition('DefaultFormat'))
         $('#Form_ShowAdvancedOptions').attr('checked', false);
     else
     {
@@ -42,15 +42,17 @@ jQuery(document).ready(function($) {
 
     $('#AdvancedOptions input:checked').each(function() {
         if ($(this).is(':checked')) {
+            $('#AdvancedOptionsToggle').find(".iCheck-helper").trigger('click');
             $('#Form_ShowAdvancedOptions').attr('checked', true);
+
             $('#AdvancedOptions').show();
 
             return false;
         }
     });
 
-    $('#Form_ShowAdvancedOptions').click(function() {
-        if ($('#Form_ShowAdvancedOptions').is(':checked'))
+    $('#Form_ShowAdvancedOptions').change(function() {
+        if (this.checked)
             $('#AdvancedOptions').show();
         else
             $('#AdvancedOptions').hide();

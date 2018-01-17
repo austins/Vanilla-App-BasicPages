@@ -1,7 +1,3 @@
-body.PagesSettings .Sortable table td strong {
-    display: inline;
-}
-
 body.PagesSettings textarea.TextBox {
     max-height: none;
     overflow: auto !important;
