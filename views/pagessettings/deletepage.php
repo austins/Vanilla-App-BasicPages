@@ -1,6 +1,6 @@
 <?php defined('APPLICATION') or exit(); ?>
     <h1><?php echo $this->Data('Title'); ?></h1>
-    <div class="Info">
+    <div class="padded">
         <?php echo T('BasicPages.Settings.DeletePage.Notice',
             'Are you sure you want to delete this page? This action cannot be undone.'); ?>
     </div>
