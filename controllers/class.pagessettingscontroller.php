@@ -258,6 +258,8 @@ class PagesSettingsController extends Gdn_Controller {
                 }
 
                 if ($this->DeliveryType() == DELIVERY_TYPE_ALL) {
+                    $this->informMessage(t('Your changes have been saved.'));
+
                     $this->setRedirectTo('pagessettings/allpages#Page_' . $PageID);
                 }
             }
@@ -328,10 +330,9 @@ class PagesSettingsController extends Gdn_Controller {
                 if (Gdn::Router()->MatchRoute($Page->UrlCode . $this->PageModel->RouteExpressionSuffix))
                     Gdn::Router()->DeleteRoute($Page->UrlCode . $this->PageModel->RouteExpressionSuffix);
 
-                if ($this->DeliveryType() == DELIVERY_TYPE_ALL) // Full Page
-                    Redirect('pagessettings/allpages');
-                elseif ($this->DeliveryType() == DELIVERY_TYPE_VIEW) // Popup
-                    $this->RedirectUrl = Url('pagessettings/allpages');
+                $this->informMessage(t('BasicPages.Settings.DeletingPage', 'Deleting page...'));
+
+                $this->setRedirectTo('pagessettings/allpages');
             }
 
             $this->AddSideMenu();
