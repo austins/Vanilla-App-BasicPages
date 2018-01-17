@@ -1,8 +1,9 @@
 <?php defined('APPLICATION') or exit();
 
 $Pages = $this->Data('Pages')->Result();
+
+echo heading($this->Data('Title'), t('BasicPages.Settings.NewPage', 'New Page'), '/pagessettings/newpage');
 ?>
-<h1><?php echo $this->Data('Title'); ?></h1>
 <section class="padded clearfix">
     <div class="pull-right">
         <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=72R6B2BUCMH46"
@@ -18,15 +19,6 @@ $Pages = $this->Data('Pages')->Result();
             'If you find this application useful and would like to support the developer, please make a donation.'); ?>
     </div>
 </section>
-
-<div class="padded">
-    <h2 class="subheading"><?php echo T('BasicPages.Settings.AllPages.ManagePages', 'Manage Pages'); ?></h2>
-
-    <?php echo T('BasicPages.Settings.AllPages.GetStarted',
-        'Get started by clicking the button below to create a new page.'); ?>
-
-    <br><br><?php echo Anchor(T('BasicPages.Settings.NewPage', 'New Page'), '/pagessettings/newpage', 'btn btn-primary'); ?>
-</div>
 
 <div class="padded">
     <?php
@@ -81,7 +73,7 @@ $Pages = $this->Data('Pages')->Result();
         echo '<div>';
         if ((int)$this->Data('CountPages') === 0)
             echo T('BasicPages.Settings.AllPages.NoPages',
-                'No pages currently exist. Create a new page by clicking the button above.');
+                'No pages currently exist. Create a new page by clicking the "New Page" button above.');
         else
             echo T('BasicPages.Settings.AllPages.NoPagesOnPage',
                 'No pages exist on this index page.');
