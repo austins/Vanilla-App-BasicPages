@@ -62,6 +62,8 @@ class PagesSettingsController extends Gdn_Controller {
         // Check permission
         $this->Permission('Garden.Settings.Manage');
 
+        $this->addJsFile('jquery.tablednd.js');
+
         // Get page data
         $this->SetData('Pages', $this->PageModel->Get());
 
