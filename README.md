@@ -12,6 +12,3 @@ There are two ways to download this application:
 2. Clone the repository into the `applications` directory of Vanilla and be sure to double check that new directory is named `basicpages`.
 
 Once you have added the application to your Vanilla installation, you need to activate it in the admin dashboard. Once activated, you will see a new "Pages" menu in the dashboard sidebar where you may start using the application.
-
-------------------------------
-Copyright © 2013 Austin S.
