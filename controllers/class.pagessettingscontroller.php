@@ -258,9 +258,14 @@ class PagesSettingsController extends Gdn_Controller {
                 }
 
                 if ($this->DeliveryType() == DELIVERY_TYPE_ALL) {
-                    $this->informMessage(t('Your changes have been saved.'));
+                    if (strtolower($this->RequestMethod) == 'newpage') {
+                        $this->informMessage(t('Your new page has been saved.'));
 
-                    $this->setRedirectTo('pagessettings/allpages#Page_' . $PageID);
+                        $this->setRedirectTo('pagessettings/allpages#Page_' . $PageID);
+                    } else {
+                        $this->informMessage(t('Your changes have been saved. ')
+                            . anchor(t('BasicPages.Settings.NewPage.ViewPage', 'View the page'), PageModel::PageUrl($FormValues['UrlCode']), '', array('target' => '_blank')) . '.');
+                    }
                 }
             }
         }
