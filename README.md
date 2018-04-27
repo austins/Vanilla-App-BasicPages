@@ -8,7 +8,7 @@ This application is released under the GNU GPL2 license.
 
 There are two ways to download this application:
 
-1. **[Download the latest stable release](http://vanillaforums.org/get/basicpages-application).**
+1. **[Download the latest stable release](https://open.vanillaforums.com/addon/basicpages-plugin).**
 2. Clone the repository into the `applications` directory of Vanilla and be sure to double check that new directory is named `basicpages`.
 
 Once you have added the application to your Vanilla installation, you need to activate it in the admin dashboard. Once activated, you will see a new "Pages" menu in the dashboard sidebar where you may start using the application.
