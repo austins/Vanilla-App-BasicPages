@@ -56,10 +56,6 @@ $Construct
     ->Column('Sort', 'int', true)
     ->Column('SiteMenuLink', 'tinyint(1)', '0')
     ->Column('ViewPermission', 'tinyint(1)', '0')
-    ->Column('InsertUserID', 'int', false, 'key')
-    ->Column('UpdateUserID', 'int', true)
-    ->Column('InsertIPAddress', 'varchar(15)', true)
-    ->Column('UpdateIPAddress', 'varchar(15)', true)
     ->Set($Explicit, $Drop);
 
 // Update procedures from previous versions of Basic Pages.
