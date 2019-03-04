@@ -3,7 +3,7 @@
   "keyRaw": "BasicPages",
   "name": "Basic Pages",
   "description": "Basic Pages is an application that provides a way for you to create basic public pages for static content in Garden.",
-  "version": "2.1.8",
+  "version": "2.1.9",
   "url": "http://vanillaforums.org/addon/basicpages-application",
   "license": "GNU GPL v2",
   "authors": [
